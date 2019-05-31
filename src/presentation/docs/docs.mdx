@@ -1,0 +1,112 @@
+import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem} from 'spectacle';
+import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
+import InlineCode from "components/InlineCode";
+
+
+# Redux Docs Updates
+
+
+export default TitleSlide
+
+---
+
+#### Redux Core Docs Rewrite
+
+- Problems with current docs ([Issue #2590: General docs review](https://github.com/reduxjs/redux/issues/2590))
+  - Originally written 3 years ago, to target a different audience
+    - [Dan Abramov on Twitter, 2015: "so hard to write the new docs - many audiences to cater to. Flux beginners, FP people, normal JS people"](https://twitter.com/dan_abramov/status/622567874796855296)
+    - Assumptions about "Flux wars"
+    - Comparisons to things like Backbone
+  - Tutorials are shallow and don't get into "real-world" usage
+  - Unclear learning flow
+  - "Recipes" section is a bunch of random content
+  - "Usage with React" page emphasizes "containers" unnecessarily
+  - Lack of info on _why_ and _when_ you should use Redux
+  - Deliberately unopinionated almost everywhere
+  
+---
+
+#### Redux Core Docs Rewrite
+  
+- Planned docs revamp ([Issue #3313: Revamped docs content, structure, and teaching flow](https://github.com/reduxjs/redux/issues/3313)):
+  - Reorganize current content into more logical structures
+  - Provide "learning paths" for different types of users
+  - Rework tutorials
+    - Clarify how Redux works, from bare-bones up to large apps
+    - Switch from "folder-by-type" to "feature folder" structures
+  - More info on how to use Redux with (and without) various UI frameworks
+    - Rewrite "Usage with React" tutorial
+  - "Style Guide" page with opinionated suggestions and best practices
+  - New "Real-World Usage" section
+    - Discuss app structures, async, selectors, etc
+
+      
+---
+
+#### New "Redux Essentials" Tutorial
+  
+- Spent first half of 2020 writing a new 25K-word "Redux Essentials" tutorial sequence
+  - Teaches Redux Toolkit and React-Redux hooks as the default way to use Redux 
+  - Uses a "top-down" / "how to use it the right way" teaching approach
+  - Builds a "real-world" example app that teaches Redux concepts and covers all of the RTK and React-Redux APIs
+- Took inspiration from numerous other docs sites and tutorials
+  - "What You'll Learn / What You've Learned" summaries
+  - Info/Tip/Caution/Warning callout boxes and "Detailed Explanation" expandable sections 
+  - Diagrams and embedded runnable CodeSandboxes
+- Now linked as the default "Tutorial" on the header 
+
+##### [Redux Essentials, Part 1: Overview and Concepts](https://redux.js.org/tutorials/essentials/part-1-overview-concepts)
+
+---
+
+#### New "Redux Fundamentals" Tutorial
+  
+- Existing "Basics/Advanced" tutorial has many flaws ([issue #855](https://github.com/reduxjs/redux/issues/3855)):
+  - Outdated references to "Flux", etc
+  - Unclear code examples
+  - Shows practices we no longer recommed ( `/reducers` folder, "container components", `const ADD_TODO = 'ADD_TODO'`)
+- Currently writing a new "Redux Fundamentals" tutorial to replace the "Basics" sequence
+  - Still need a low-level, "how the mechanics work" tutorial sequence that shows writing Redux code "by hand"
+  - Covers same concepts (actions, reducers, store, usage with React, async), but rewrites 90% of the content 
+  - Shows single-file "slice file" pattern, React-Redux hooks, `"todos/todoAdded"` types
+  - Adds overview of Redux concepts, standard usage patterns, and finishes by showing how RTK simplifies the existing hand-written Redux logic
+  - Real working example todo app, with CodeSandboxes
+- Current draft about 50% done (possible ETA end of October?)
+
+
+##### [Redux Fundamentals, Part 1 (preview): Overview](https://deploy-preview-3894--redux-docs.netlify.app/tutorials/fundamentals/part-1-overview)
+
+
+---
+
+#### Redux Style Guide 
+
+- Lists official "opinionated" patterns and practices 
+- "Essential":
+  - no mutation
+  - no side effects in reducers
+  - one store
+- "Strongly Recommended": 
+  - Use RTK
+  - Structure logic as "ducks/slice" files
+  - More logic in reducers
+  - Model actions as "events", not "setters"
+  - Use React-Redux hooks
+  - Use static typing
+  - Use plain JS objects, not Immutable.js
+- "Recommended":
+  - Write actions as `"domain/eventName"`
+  - Use Flux Standard Action structure 
+  - Use thunks for async 
+
+
+---
+
+#### Other Docs Needs
+
+- React-Redux docs work:
+  - Tutorial still teaches `connect` as default
+  - Needs a hooks usage guide page
+- Redux Toolkit docs work:
+  - Tutorials need to be rethought to balance teaching RTK vs Redux concepts 
+  - Tutorial content on migration and using TS should be moved to new pages 

@@ -1,0 +1,151 @@
+import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear} from 'spectacle';
+import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
+import InlineCode from "components/InlineCode";
+
+<div>
+<Heading textColor="black" size={2}>
+    Is Redux Dead?
+</Heading>
+
+<Appear>
+    <Heading size={1} textColor={"tertiary"}>
+        <b>NO!</b>
+    </Heading>
+</Appear>
+</div>
+
+
+
+export default TitleSlide
+
+---
+
+#### Redux - Alive and Well!
+
+- Roughly 50% of all React apps use Redux, and used with other frameworks too
+- Used in large projects like:
+  - Wordpress's "Project Gutenberg" editor
+  - Firefox DevTools
+  - Slack
+  - Twitter's modernized UI
+  - Spotify
+- Maintained by myself and Tim Dorr - not owned by Facebook
+
+
+
+##### Redux will be around for a long time!
+
+
+
+---
+
+import {npmStatsCore, npmStatsReact} from "./imagesLoader";
+
+#### Redux - Alive and Well!
+
+
+<Image src={npmStatsCore} />
+<Image src={npmStatsReact} />
+
+---
+
+#### Redux - Alive and Well!
+
+<br />
+
+##### "Redux is over-used"
+
+- Probably true!
+- **For _any_ tool, consider _why_ you are using it and what the tradeoffs are**
+- Redux FAQ:
+  - ["When should I use Redux?"](https://redux.js.org/faq/general#when-should-i-use-redux)
+  - ["Can I still use `setState` in a Redux app?"](https://redux.js.org/faq/organizing-state#do-i-have-to-put-all-my-state-into-redux-should-i-ever-use-reacts-setstate)
+  - [Redux Essentials tutorial: mixing local and Redux state](https://redux.js.org/tutorials/essentials/part-2-app-structure#component-state-and-forms)
+- Opinions of the Twitterati do not necessarily reflect what's going on elsewhere
+
+
+
+---
+
+#### Redux - Alive and Well!
+
+<br />
+
+##### "GraphQL can replace Redux"
+
+- GraphQL is definitely great for data fetching and caching
+  - If that's all you used Redux / React-Redux for, you probably didn't *need* Redux
+- GraphQL is a protocol, but most people use a sophisticated client like Apollo, which provides caching and normalization
+  - Apollo v3 has some local client state capabilities built-in
+- Observations
+  - Does seem to work best if your full stack is GraphQL-centric
+  - Managing complex client state via GraphQL seems awkward
+  - GraphQL and Redux aren't exclusive - possible to use GraphQL protocol for fetching, and cache in Redux
+- Same goes for React-Query and SWR - focused on data fetching
+
+---
+
+#### Redux - Alive and Well!
+
+<br />
+
+##### "Redux will be replaced by React's new Context and Hooks APIs"
+
+- **Context API is a _Dependency Injection_ system, not a _state management_ system!**
+- Context API is great for passing data to deeply nested components
+  - If that's all you used Redux / React-Redux for, you probably didn't *need* Redux
+- `useReducer` looks a lot like Redux, and works well with `useContext`
+- Limitations:
+  - No DevTools or middleware
+  - Limits with context update patterns and performance
+- Not mutually exclusive!
+  - Use state hooks + Redux together, same as using Redux + component state
+  - React-Redux hooks API is simpler than `connect` and enables new patterns
+- React Suspense _will_ make things tricky down the road - we'll see how it works out
+
+
+---
+
+
+#### Problem Space Evolution
+
+- 2015: "predictable state updates"
+  - Flux was a response to event-driven libs like Backbone
+- 2020: "data fetching and caching"
+  - Devs don't want to track loading state
+  - Just call `loadSomethingForMe()` and get `{isLoading, data, error}` automatically
+  - Examples: Apollo Client, React-Query, SWR
+- Not going to turn Redux into Apollo, but worth seeing if we can improve Redux DX here
+
+
+
+
+---
+
+
+#### Redux - Alive and Well!
+
+- Mark's Dev Blog: **[Redux - Not Dead Yet!](https://blog.isquaredsoftware.com/2018/03/redux-not-dead-yet)**
+- Dave Ceddia: **[Redux vs the React Context API](https://daveceddia.com/context-api-vs-redux/)**
+- **TL;DR**: Context, <InlineCode>useReducer</InlineCode>, Apollo+GraphQL, Suspense, etc, are useful tools that can overlap with some of the ways Redux is used, 
+but there's still many valid reasons to choose and use Redux / React-Redux:
+  - Predictable state updates
+  - Optimized render performance
+  - Keeping logic outside the React component tree
+  - Sharing logic across platforms
+  - Redux DevTools
+  - Middleware
+  - Ecosystem
+  - Customizability
+
+
+---
+
+#### Summary
+
+
+- Redux is a jack of all trades
+  - "A platform for developers to build customized state management for their use-cases, while being able to reuse things like the graphical debugger or middleware"
+  - Can be used for many different use cases (UI state, server caching, state machines, complex logic, other global state)
+  - Probably not "best" at any one use case, but flexible enough for any of them
+- Identify what problems you actually have, and choose tools that solve those problems

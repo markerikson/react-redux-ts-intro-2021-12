@@ -1,0 +1,155 @@
+import {  Cite, Slide, Heading, Text, Layout, Fill, Image, GoToAction, Markdown} from 'spectacle';
+import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
+
+
+
+# Intro to React, Redux, and TypeScript
+<br />
+
+### Mark Erikson
+
+<Heading size={3} textColor="blue">
+    <a href="https://twitter.com/acemarke" style={{textDecoration : "none"}}>
+        @acemarke
+    </a>
+</Heading>
+
+#### November 2020
+
+export default (props) => <TitleSlide {...props} />
+
+---
+
+
+### Who Am I?
+
+<br />
+
+#### Answerer of Questions
+
+<Layout style={{justifyContent : "center"}}>
+    <Fill style={{marginRight : 10}}>
+        <Text style={{fontSize : "3.0rem", textAlign: "center"}}>
+            <div style={{textAlign: "center"}}><b>@acemarke</b></div>
+            <div style={{textAlign: "center"}}>Twitter, Reactiflux, <br />Reddit, HN</div>
+        </Text>
+    </Fill>
+    <Fill style={{marginLeft : 10}}>
+        <Text style={{fontSize : "3.0rem"}}>
+            <div style={{textAlign: "center"}}><b>@markerikson</b></div>
+            <div style={{textAlign: "center"}}>Stack Overflow, Github</div>
+        </Text>
+    </Fill>
+</Layout>
+
+#### Collector of Interesting Links
+
+<Layout style={{justifyContent : "center"}}>
+    <Fill style={{marginRight : 10}}>
+        <div style={{fontSize : "3.0rem", textAlign: "center"}}><b>
+            <a
+                style={{textDecoration : "none"}}
+                href="https://github.com/markerikson/react-redux-links">
+                React/Redux Links
+            </a>
+        </b></div>
+    </Fill>
+    <Fill style={{marginLeft : 10}}>
+        <div  style={{fontSize : "3.0rem", textAlign: "center"}}><b>
+            <a
+                style={{textDecoration : "none"}}
+                href="https://github.com/markerikson/redux-ecosystem-links">
+                Redux Ecosystem Links</a>
+        </b></div>
+    </Fill>
+</Layout>
+
+---
+
+
+
+### Who Am I?
+
+<br />
+
+####  Writer of Very Long Posts
+
+<Layout style={{justifyContent : "center", marginBottom: 10}}>
+    <Fill  style={{fontSize : "3.0rem"}}>
+        <div style={{textAlign: "center"}}><b>
+            <a
+                style={{textDecoration : "none"}}
+                href="http://blog.isquaredsoftware.com">
+                blog.isquaredsoftware.com
+            </a>
+        </b></div>
+        <Layout>
+            <Fill>
+                <a href="http://blog.isquaredsoftware.com/series/idiomatic-redux" style={{textDecoration : "none"}}>
+                    "Idiomatic Redux"<br />opinions series
+                </a>
+            </Fill>
+            <Fill>
+                <a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/"  style={{textDecoration : "none"}}>
+                    A (Mostly) Complete Guide to React Rendering Behavior
+                </a>
+            </Fill>
+        </Layout>
+    </Fill>
+</Layout>
+
+#### Redux Maintainer
+
+<Layout style={{justifyContent : "center"}}>
+    <Fill style={{marginRight : 10, fontSize : "3.0rem"}}>
+        <b>Redux Docs</b>
+        <ul>
+        <li><a
+                style={{textDecoration : "none"}}
+                href="https://redux.js.org/tutorials/essentials/part-1-overview-concepts"><b>Redux Essentials tutorial</b></a></li>
+            <li><a
+                style={{textDecoration : "none"}}
+                href="https://redux.js.org/faq"><b>Redux FAQ</b></a></li>
+            <li><a
+                style={{textDecoration : "none"}}
+                href="https://redux.js.org/recipes/structuring-reducers/structuring-reducers"><b>Structuring Reducers</b></a></li>
+            <li><a
+                style={{textDecoration : "none"}}
+                href="https://redux.js.org/style-guide/style-guide"><b>Redux Style Guide</b></a></li>
+        </ul>
+    </Fill>
+    <Fill style={{marginLeft : 10, fontSize : "3.0rem"}}>
+       <b>Redux Libraries</b>
+        <ul>
+            <li>Wrote React-Redux v7</li>
+            <li>Directed React-Redux v7.1 hooks API</li>
+            <li>Created Redux Toolkit</li>
+        </ul>
+    </Fill>
+</Layout>
+
+
+---
+
+import {simpsonsMarkHead} from "./imagesLoader";
+
+### Who Am I?
+
+<br />
+
+####  That Guy With The Simpsons Avatar
+
+<div style={{ display : "flex", flexDirection : "column"}}>
+    <Image src={simpsonsMarkHead}  height="650"/>
+</div>
+
+
+
+---
+
+
+### Notes
+
+- The code samples use the latest modern ES6+ JavaScript syntax, such as arrow functions and destructuring. None of those are required to use React, but most React applications use ES6 and newer features.
+- Some of the code samples are shortened or formatted differently in order to fit them into the slides, and aren't representative of production code.
+- I am a Redux maintainer, and spend most of my time answering questions about React and Redux. So, I'm _just_ a bit biased :)
