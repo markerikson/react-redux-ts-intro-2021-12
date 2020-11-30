@@ -12,7 +12,7 @@ const colors = {
     primary : "white",
     secondary : "#1F2022",
     tertiary : "#03A9FC",
-    quaternary : "black"
+    quaternary : "black",
 }
 
 const theme = createTheme(colors, {
@@ -59,7 +59,7 @@ const theme = createTheme(colors, {
         h5: {
           //fontSize: '2rem',
           //textTransform: 'uppercase',
-            color : colors.quaternary
+            color : "#03a9fc"
         },
         h6: {
           //fontSize: '1.5rem',
@@ -78,6 +78,11 @@ const theme = createTheme(colors, {
           backgroundColor : "#8080801a",
           borderLeft: "8px solid #337ab7",
           fontSize: "2.25rem !important",
+          paddingTop: "0.5rem",
+          paddingBottom: "0.5rem",
+          borderTop: "1px solid black",
+          borderRight: "1px solid black",
+          borderBottom: "1px solid black",
       }
     }
   });

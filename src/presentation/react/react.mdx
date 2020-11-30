@@ -1,0 +1,113 @@
+import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem} from 'spectacle';
+import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
+import InlineCode from "components/InlineCode";
+
+
+
+# Using React to Create User Interfaces
+
+export default TitleSlide
+
+---
+
+#### JavaScript Frameworks
+
+> **Every framework can be viewed as an attempt to say "the hardest part of writing a webapp is $X, so here's some code to make that easier".**
+> 
+> <br />
+> 
+> Knockout.js is basically what you get when a dev says "the hardest part of
+> writing a webapp is implementing two-way data binding", which you can tell
+> because that's basically 90% of what the framework does.  
+> 
+> <br />
+> 
+> Similarly, Backbone is the result of feeling like the hard parts are fetching and
+> persisting models to a REST API, and client side routing; that's basically
+> all it does. Figuring out how to turn your models into HTML is easy
+> (apparently), but models are hard, so it helps you.
+
+- [*Reddit user /u/Cody_Chaos*](https://www.reddit.com/r/reactjs/comments/39wsfi/what_are_pros_and_cons_of_using_reactjsflux/cs7msvp)
+
+
+---
+
+#### JavaScript Frameworks
+
+> **Angular is what you get if you think the biggest problem with writing webapps is that Javascript isn't Java; Ember that it's not Ruby.** (I kid. But I'm less familiar with those frameworks.) And so on. Everyone has their own ideas of what's hard to solve.
+>
+> <br />
+>
+> <span style={{fontSize: "48px"}}><b>React + Redux is based on the idea that what's really hard with writing webapps is non-deterministic behaviour and unclear data flow.</b></span> And if you've worked on a large Knockout or Backbone project, you're probably inclined to agree.
+
+- [*Reddit user /u/Cody_Chaos*](https://www.reddit.com/r/reactjs/comments/39wsfi/what_are_pros_and_cons_of_using_reactjsflux/cs7msvp)
+
+---
+
+#### JavaScript Frameworks
+
+- **Why do frameworks exist?**
+  - Keep state out of the DOM
+  - Higher-level abstractions
+  - Code organization
+- **Pros**
+  - Common concepts that can be shared between apps and developers
+  - Large communities, shared knowledge, documentation, bug fixes
+  - Better app structure through tools and guidelines
+- **Cons**
+  - Learning curve
+  - Minimum requirements for size
+  - Setup and infrastructure
+
+---
+
+import { reactLogo } from './imagesLoader';
+
+#### What is React?
+
+
+<Image src={reactLogo} />
+
+
+- "A Javascript library for creating user interfaces"
+- "The 'V' in 'MVC'"
+- "A library, not a framework"
+
+---
+
+#### What Is React?
+
+##### Declarative
+
+React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes. Declarative views make your code more predictable and easier to debug
+
+##### Component-Based
+
+Build encapsulated components that manage their own state, then compose them to make complex UIs. Since component logic is written in JavaScript instead of templates, you can easily pass rich data through your app and keep state out of the DOM.
+
+
+- [*React Documentation*](https://reactjs.org)
+
+---
+
+import jQueryImperative from './examples/jQuery';
+import reactDeclarative from './examples/react';
+
+#### Declarative Code 
+
+<Layout  style={{flexWrap : "wrap"}}>
+    <Fill style={{marginRight : 5, minWidth: 700}}>
+        <Heading size={5}>Imperative</Heading>
+        <CodePane lang="js" source={jQueryImperative} />
+    </Fill>
+    <Fill style={{marginLeft : 5}}>
+        
+        <Heading size={5}>Declarative</Heading>
+        <CodePane lang="js" source={reactDeclarative} />
+    </Fill>
+</Layout>
+
+- React is an abstraction away from the DOM
+- Encourages you to think of your application and UI in terms of ***state***, rather than explicit UI manipulations
+- Allows a simplified mental model for data flow: "re-render the whole app on every update"
+- Mix and match reusable components to build UIs
