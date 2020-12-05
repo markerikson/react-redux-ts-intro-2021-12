@@ -1,10 +1,13 @@
 function NoteBox() {
-  // ... more code ...
+  const [data, setData] = useState([]);
+
+  const handlePost = () => {};
+
   return (
     <div className="NoteBox">
       <h1>Notes</h1>
-      <NoteList data={this.state.data} />
-      <NoteForm onPost={this.handlePost} />
+      <NoteList data={data} />
+      <NoteForm onPost={handlePost} />
     </div>
-  )
+  );
 }

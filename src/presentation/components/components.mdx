@@ -1,0 +1,32 @@
+<!-- prettier-ignore-start -->
+import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem, Markdown, ComponentPlayground} from 'spectacle';
+import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
+import InlineCode from "components/InlineCode";
+
+<!-- prettier-ignore-end -->
+
+## React Components
+
+export default TitleSlide;
+
+---
+
+#### Components
+
+##### Components === State Machines
+
+React thinks of UIs as simple state machines. By thinking of a UI as being in various states and rendering those states, it's easy to keep your UI consistent. In React, you simply update a component's state, and then render a new UI based on this new state. React takes care of updating the DOM for you in the most efficient way
+
+##### Components === Functions
+
+Just like functions take parameters and return a result, components take in values and return UI output. Given the same input values, a component will return the same UI output. This is often described as `UI = f(state)`
+
+---
+
+import helloWorld from "./examples/HelloWorldComponent";
+
+console.log(helloWorld);
+
+#### Hello World Component
+
+<ComponentPlayground theme="dark" code={helloWorld} />

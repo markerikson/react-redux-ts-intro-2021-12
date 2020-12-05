@@ -1,34 +1,34 @@
-import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem} from 'spectacle';
+<!-- prettier-ignore-start -->
+import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem, Markdown} from 'spectacle';
 import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
 import InlineCode from "components/InlineCode";
 
-
+<!-- prettier-ignore-end -->
 
 # Using React to Create User Interfaces
 
-export default TitleSlide
+export default TitleSlide;
 
 ---
 
 #### JavaScript Frameworks
 
 > **Every framework can be viewed as an attempt to say "the hardest part of writing a webapp is $X, so here's some code to make that easier".**
-> 
+>
 > <br />
-> 
+>
 > Knockout.js is basically what you get when a dev says "the hardest part of
 > writing a webapp is implementing two-way data binding", which you can tell
-> because that's basically 90% of what the framework does.  
-> 
+> because that's basically 90% of what the framework does.
+>
 > <br />
-> 
+>
 > Similarly, Backbone is the result of feeling like the hard parts are fetching and
 > persisting models to a REST API, and client side routing; that's basically
 > all it does. Figuring out how to turn your models into HTML is easy
 > (apparently), but models are hard, so it helps you.
 
-- [*Reddit user /u/Cody_Chaos*](https://www.reddit.com/r/reactjs/comments/39wsfi/what_are_pros_and_cons_of_using_reactjsflux/cs7msvp)
-
+- [_Reddit user /u/Cody_Chaos_](https://www.reddit.com/r/reactjs/comments/39wsfi/what_are_pros_and_cons_of_using_reactjsflux/cs7msvp)
 
 ---
 
@@ -38,9 +38,15 @@ export default TitleSlide
 >
 > <br />
 >
-> <span style={{fontSize: "48px"}}><b>React + Redux is based on the idea that what's really hard with writing webapps is non-deterministic behaviour and unclear data flow.</b></span> And if you've worked on a large Knockout or Backbone project, you're probably inclined to agree.
+> <span style={{ fontSize: "48px" }}>
+>   <b>
+>     React + Redux is based on the idea that what's really hard with writing
+>     webapps is non-deterministic behaviour and unclear data flow.
+>   </b>
+> </span> And if you've worked on a large Knockout or Backbone project, you're probably
+> inclined to agree.
 
-- [*Reddit user /u/Cody_Chaos*](https://www.reddit.com/r/reactjs/comments/39wsfi/what_are_pros_and_cons_of_using_reactjsflux/cs7msvp)
+- [_Reddit user /u/Cody_Chaos_](https://www.reddit.com/r/reactjs/comments/39wsfi/what_are_pros_and_cons_of_using_reactjsflux/cs7msvp)
 
 ---
 
@@ -61,13 +67,11 @@ export default TitleSlide
 
 ---
 
-import { reactLogo } from './imagesLoader';
+import { reactLogo } from "./imagesLoader";
 
-#### What is React?
-
+#### What Is React?
 
 <Image src={reactLogo} />
-
 
 - "A Javascript library for creating user interfaces"
 - "The 'V' in 'MVC'"
@@ -85,29 +89,61 @@ React makes it painless to create interactive UIs. Design simple views for each 
 
 Build encapsulated components that manage their own state, then compose them to make complex UIs. Since component logic is written in JavaScript instead of templates, you can easily pass rich data through your app and keep state out of the DOM.
 
-
-- [*React Documentation*](https://reactjs.org)
+- [_React Documentation_](https://reactjs.org)
 
 ---
 
-import jQueryImperative from './examples/jQuery';
-import reactDeclarative from './examples/react';
+import jQueryImperative from "./examples/jQuery";
+import reactDeclarative from "./examples/react";
 
-#### Declarative Code 
+#### Declarative Code
 
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth: 700}}>
-        <Heading size={5}>Imperative</Heading>
-        <CodePane lang="js" source={jQueryImperative} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        
-        <Heading size={5}>Declarative</Heading>
-        <CodePane lang="js" source={reactDeclarative} />
-    </Fill>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <Heading size={5}>Imperative</Heading>
+    <CodePane lang="js" source={jQueryImperative} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <Heading size={5}>Declarative</Heading>
+    <CodePane lang="jsx" source={reactDeclarative} />
+  </Fill>
 </Layout>
 
 - React is an abstraction away from the DOM
-- Encourages you to think of your application and UI in terms of ***state***, rather than explicit UI manipulations
+- Encourages you to think of your application and UI in terms of **_state_**, rather than explicit UI manipulations
 - Allows a simplified mental model for data flow: "re-render the whole app on every update"
 - Mix and match reusable components to build UIs
+
+---
+
+#### Managing the UI
+
+##### Declarative Rendering
+
+- Completely recreating the entire UI on every update is not efficient
+- Rendering a component returns _descriptions_ of what the UI should look like now
+- React uses those descriptions to update the UI efficiently
+
+##### One-Way Data Flow
+
+- Components pass data to their children
+- Component rendering is based on internal state plus data from parent
+- Predictable top-down data flow makes it easier to understand reason for UI contents
+
+---
+
+#### Choosing React
+
+##### Why Is This Compelling?
+
+> Declarative → Predictable → Confidence → Reliability
+>
+> <br />
+>
+> _ref: [Tom Occhino's ReactConf keynote](https://www.youtube.com/watch?v=KVZ-P-ZI6W4#t=868)_
+
+##### What's the Learning Curve?
+
+- Learning React's basic concepts and API: **EASY**
+- Learning to "think in React": **INTERMEDIATE**
+- Stuff you can do with React: **ADVANCED**
