@@ -1,7 +1,9 @@
 <!-- prettier-ignore-start -->
 import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem, Markdown} from 'spectacle';
+import Editor from 'react-simple-code-editor';
 import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
 import {ComponentPlayground} from 'components/ComponentPlayground';
+import {LeftContentRightContent, LeftCodeRightContent, LeftCodeRightMarkdown} from "components/LeftCodeRightContent";
 import InlineCode from "components/InlineCode";
 
 <!-- prettier-ignore-end -->
@@ -29,3 +31,135 @@ import helloWorld from "./examples/HelloWorldComponent";
 #### Hello World Component
 
 <ComponentPlayground code={helloWorld} />
+
+---
+
+import functionComponents from "./examples/FunctionComponents";
+import classComponents from "./examples/ClassComponents";
+
+#### Declaring Components
+
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5 }}>
+    <Heading textColor="tertiary" size={6}>
+      Function Components (modern)
+    </Heading>
+    <CodePane lang="jsx" source={functionComponents} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <Heading textColor="tertiary" size={6}>
+      Class Components (legacy)
+    </Heading>
+    <CodePane lang="javascript" source={classComponents} />
+  </Fill>
+</Layout>
+
+---
+
+import renderExample from "./examples/RenderExample";
+
+#### Basic Usage
+
+<LeftCodeRightMarkdown leftSource={renderExample}>{`
+- A React function component will be called by React. This process is known as
+  **"rendering"**
+- When a component renders, it returns a tree of React
+  component descriptions, which will eventually be turned into DOM nodes in the
+  page
+- The \`ReactDOM.render()\` method creates a new component tree,
+  initializes the React library, and appends the generated DOM output from the
+  component and its children to the parent DOM node
+  `}</LeftCodeRightMarkdown>
+
+---
+
+import jsxExample1 from "./examples/JsxExample";
+
+#### JSX Syntax
+
+<LeftCodeRightMarkdown leftSource={jsxExample1}>{`
+- JSX is syntax sugar for nested function calls. Not required to use React, but the standard approach. Requires compilation process, usually with Babel.
+- JSX "tags" are turned into \`React.createElement()\` calls (which could be written by hand without JSX). Those calls return plain JS objects describing the output. 
+- React "element" objects look like: \`{type : thingToRender, props : {}, children : []}\`
+  `}</LeftCodeRightMarkdown>
+
+---
+
+import jsxExample2 from "./examples/JsxExample2";
+
+#### JSX Syntax
+
+<LeftCodeRightMarkdown leftSource={jsxExample2} leftStyle={{ maxWidth: 700 }}>{`
+- Curly braces "escape" from JSX back into normal JS expressions. They are used to insert values from variables and comment out code
+- A few attribute names differ from plain HTML. In particular, use \`className\` instead of \`class\` for HTML/CSS class values, and \`<label htmlFor="someInput">\`.
+- Render logic can return a single root element, an array, a string, or a number
+- To return multiple items, use \`<React.Fragment>\` as a pseudo "parent" (which will not add any extra DOM nodes around the content)
+`}</LeftCodeRightMarkdown>
+
+---
+
+import jsxExample2 from "./examples/JsxExample2";
+
+#### JSX Gotchas
+
+<LeftCodeRightMarkdown leftSource={jsxExample2} leftStyle={{ maxWidth: 700 }}>{`
+- JSX uses capitalization to differentiate between HTML elements and React components. 
+- If the first letter is lowercase, the tag is assumed to be an HTML element, and turned into a string. If it's uppercase, the tag is assumed to be a variable name in scope (usually a component).
+- A common mistake is to give a variable a camelcase name and render it, like \`<myComponent>\`. React turns that into \`{type : "myComponent"}\`, which breaks, instead of \`{type : MyComponent}\`.)
+`}</LeftCodeRightMarkdown>
+
+---
+
+import { iamdeveloperJsx } from "./imagesLoader";
+
+### HTML in my JavaScript?!?!?
+
+<Image src={iamdeveloperJsx} />
+
+---
+
+#### "Separation of Concerns"?
+
+> Templates encourage a poor separation of concerns. "View Model" tightly couples a template to display logic. Display logic and markup are inevitably tightly coupled. **Templates separate technologies, not concerns**.
+>
+> <br />
+>
+> React components are **"...a highly cohesive building block for UIs loosely coupled with other components."**
+>
+> - _Pete Hunt: [React: Rethinking Best Practices](http://www.slideshare.net/floydophone/react-preso-v2)_
+
+---
+
+import { separationOfConcerns } from "./imagesLoader";
+
+#### "Separation of Concerns"?
+
+<LeftContentRightContent
+  leftContent={<Image src={separationOfConcerns} />}
+  rightContent={
+    <Markdown>
+      {`
+- If code frequently changes together, it should stay together
+- React allows you to focus on building components, not templates
+- Combining "markup" and JavaScript reduces context switching
+- Full power of Javascript for rendering logic
+   `}
+    </Markdown>
+  }
+/>
+
+---
+
+import propsExample from "./examples/PropsExample";
+
+#### Passing Data As Props
+
+<ComponentPlayground code={propsExample} />
+
+---
+
+import propsExample from "./examples/PropsExample";
+
+#### Props Test 2
+
+<Editor value={propsExample} highlight={text => text} />
