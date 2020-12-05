@@ -44,7 +44,8 @@
   },
   "resolutions": {
     "prismjs": "1.16",
-    "react-live": "2.2.3"
+    "react-live": "2.2.3",
+    "react-simple-code-editor": "0.11.0"
   },
   "homepage": "."
 }
