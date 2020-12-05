@@ -1,5 +1,13 @@
-import React, { Component } from "react";
+import React, {
+  Component,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useMemo,
+} from "react";
 import isEmpty from "lodash/isEmpty";
+import get from "lodash/get";
 import PropTypes from "prop-types";
 import styled, { css } from "react-emotion";
 
@@ -45,7 +53,7 @@ export const toggleFullscreen = () => {
   }
 };
 
-const Button = styled.button`
+const Button = styled("button")`
   display: inline-block;
   appearance: none;
   background: none;
@@ -137,7 +145,7 @@ const PlaygroundEditor = styled(
   }
 `;
 
-const PlaygroundRow = styled.div`
+const PlaygroundRow = styled("div")`
   display: flex;
   justify-content: stretch;
   align-items: center;
@@ -172,7 +180,7 @@ const PlaygroundRow = styled.div`
   }
 `;
 
-const Title = styled.div`
+const Title = styled("div")`
   position: relative;
   flex: 1;
   background: #ddd;
@@ -203,7 +211,7 @@ const Title = styled.div`
     `};
 `;
 
-const PlaygroundColumn = styled.div`
+const PlaygroundColumn = styled("div")`
   flex: 1;
   font-size: 1.25vw;
   margin: 0;
@@ -231,6 +239,94 @@ const STORAGE_KEY = "spectacle-playground";
 function getEnhancedScope(scope = {}) {
   return { Component, ...scope };
 }
+
+export const ComponentPlayground2 = (
+  { code, previewBackgroundColor, scope, theme = "external", transformCode },
+  context
+) => {
+  const [actualCode, setCode] = useState(() => (code || defaultCode).trim());
+  const [actualScope, setScope] = useState(() => getEnhancedScope(scope));
+
+  const fullscreenRef = useRef(null);
+
+  const useDarkTheme = theme === "dark";
+  const externalPrismTheme = theme === "external";
+  const className = `language-jsx ${
+    externalPrismTheme ? "" : "builtin-prism-theme"
+  }`;
+
+  const onEditorChange = code => {
+    setCode(code);
+    localStorage.setItem(STORAGE_KEY, code);
+  };
+
+  const editorRequestFullscreen = () =>
+    requestFullscreen(fullscreenRef.current);
+
+  useLayoutEffect(() => {
+    const syncCode = ({ key, newValue }) => {
+      if (key === STORAGE_KEY) {
+        setCode(newValue);
+      }
+    };
+
+    window.addEventListener("storage", syncCode);
+    return () => window.removeEventListener("storage", syncCode);
+  }, []);
+
+  const onKeyDown = e => e.stopPropagation();
+  const onKeyUp = e => {
+    e.stopPropagation();
+    // Esc: When entering the editor or an input element the default esc-to-exit might not work anymore
+    if (e.keyCode === 27 && isFullscreen()) {
+      exitFullscreen();
+    }
+  };
+
+  return (
+    <PlaygroundProvider
+      mountStylesheet={false}
+      code={actualCode}
+      scope={actualScope}
+      transformCode={transformCode}
+      noInline
+    >
+      <PlaygroundRow>
+        <Title>Live Preview</Title>
+        <Title useDarkTheme={useDarkTheme}>
+          Source Code
+          <FullscreenButton
+            onClick={editorRequestFullscreen}
+            isFullscreen={getFullscreenElement() === fullscreenRef.current}
+          />
+        </Title>
+      </PlaygroundRow>
+
+      <PlaygroundRow
+        innerRef={fullscreenRef}
+        onKeyUp={onKeyUp}
+        onKeyDown={onKeyDown}
+      >
+        <PlaygroundColumn>
+          <PlaygroundPreview previewBackgroundColor={previewBackgroundColor} />
+          <PlaygroundError />
+        </PlaygroundColumn>
+
+        <PlaygroundColumn>
+          <PlaygroundEditor
+            className={className}
+            theme={undefined}
+            onChange={onEditorChange}
+          />
+        </PlaygroundColumn>
+      </PlaygroundRow>
+    </PlaygroundProvider>
+  );
+};
+
+ComponentPlayground2.contextTypes = {
+  styles: PropTypes.object,
+};
 
 class ComponentPlayground extends Component {
   constructor() {
