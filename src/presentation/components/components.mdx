@@ -1,6 +1,7 @@
 <!-- prettier-ignore-start -->
-import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem, Markdown, ComponentPlayground} from 'spectacle';
+import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem, Markdown} from 'spectacle';
 import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
+import {ComponentPlayground} from 'components/ComponentPlayground';
 import InlineCode from "components/InlineCode";
 
 <!-- prettier-ignore-end -->
@@ -25,8 +26,6 @@ Just like functions take parameters and return a result, components take in valu
 
 import helloWorld from "./examples/HelloWorldComponent";
 
-console.log(helloWorld);
-
 #### Hello World Component
 
-<ComponentPlayground theme="dark" code={helloWorld} />
+<ComponentPlayground code={helloWorld} />
