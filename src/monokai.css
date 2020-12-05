@@ -32,7 +32,15 @@ code[class*="language-"] pre,
 pre[class*="language-"] pre {
   padding: 0.8em !important;
   overflow: auto !important;
-  background: #272822 !important;
+  background: #272822;
+}
+
+div[class*="language-"] textarea,
+code[class*="language-"] textarea,
+pre[class*="language-"] textarea {
+  padding: 0.8em !important;
+  overflow: auto !important;
+  background: transparent;
 }
 
 /* Inline code */
