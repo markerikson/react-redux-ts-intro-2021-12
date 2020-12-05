@@ -240,7 +240,7 @@ function getEnhancedScope(scope = {}) {
   return { Component, ...scope };
 }
 
-export const ComponentPlayground2 = (
+export const ComponentPlayground = (
   { code, previewBackgroundColor, scope, theme = "external", transformCode },
   context
 ) => {
@@ -324,11 +324,11 @@ export const ComponentPlayground2 = (
   );
 };
 
-ComponentPlayground2.contextTypes = {
+ComponentPlayground.contextTypes = {
   styles: PropTypes.object,
 };
 
-class ComponentPlayground extends Component {
+class ComponentPlaygroundOld extends Component {
   constructor() {
     super(...arguments);
     this.onRef = this.onRef.bind(this);
@@ -480,12 +480,12 @@ class ComponentPlayground extends Component {
   }
 }
 
-ComponentPlayground.contextTypes = {
+ComponentPlaygroundOld.contextTypes = {
   styles: PropTypes.object,
   store: PropTypes.object,
 };
 
-ComponentPlayground.propTypes = {
+ComponentPlaygroundOld.propTypes = {
   code: PropTypes.string,
   previewBackgroundColor: PropTypes.string,
   scope: PropTypes.object,
@@ -493,8 +493,8 @@ ComponentPlayground.propTypes = {
   transformCode: PropTypes.func,
 };
 
-ComponentPlayground.defaultProps = {
+ComponentPlaygroundOld.defaultProps = {
   theme: "dark",
 };
 
-export default ComponentPlayground;
+export default ComponentPlaygroundOld;
