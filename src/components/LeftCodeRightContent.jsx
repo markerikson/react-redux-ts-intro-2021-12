@@ -1,13 +1,35 @@
 import React from "react";
-import {CodePane, Layout, Fill} from "spectacle";
+import { CodePane, Layout, Fill, Markdown } from "spectacle";
 
-export const LeftCodeRightContent = ({leftSource, leftLanguage="javascript", leftStyle={}, rightContent,rightWidth, rightStyle={}}) => (
-    <Layout>
-        <Fill style={{marginRight : 5, ...leftStyle}}>
-            <CodePane source={leftSource} lang={leftLanguage} />
-        </Fill>
-        <Fill style={{marginLeft : 5, ...rightStyle}}>
-            {rightContent}
-        </Fill>
-    </Layout>
+export const LeftContentRightContent = ({
+  leftContent,
+  leftStyle = {},
+  rightContent,
+  rightStyle,
+}) => (
+  <Layout>
+    <Fill style={{ marginRight: 5, ...leftStyle }}>{leftContent}</Fill>
+    <Fill style={{ marginLeft: 5, ...rightStyle }}>{rightContent}</Fill>
+  </Layout>
 );
+
+export const LeftCodeRightContent = ({
+  leftSource,
+  leftLanguage = "jsx",
+  ...otherProps
+}) => (
+  <LeftContentRightContent
+    {...otherProps}
+    leftContent={<CodePane source={leftSource} lang={leftLanguage} />}
+  />
+);
+
+export const LeftCodeRightMarkdown = ({ children, ...otherProps }) => {
+  console.log(children);
+  return (
+    <LeftCodeRightContent
+      {...otherProps}
+      rightContent={<Markdown>{children}</Markdown>}
+    />
+  );
+};
