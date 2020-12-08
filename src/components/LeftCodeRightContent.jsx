@@ -24,6 +24,30 @@ export const LeftCodeRightContent = ({
   />
 );
 
+export const LeftCodeRightCode = ({
+  leftSource,
+  leftLanguage = "jsx",
+  rightSource,
+  rightLanguage = "jsx",
+  ...otherProps
+}) => (
+  <LeftContentRightContent
+    {...otherProps}
+    leftContent={<CodePane source={leftSource} lang={leftLanguage} />}
+    rightContent={<CodePane source={rightSource} lang={rightLanguage} />}
+  />
+);
+
+export const LeftContentRightMarkdown = ({ children, ...otherProps }) => {
+  console.log(children);
+  return (
+    <LeftContentRightContent
+      {...otherProps}
+      rightContent={<Markdown>{children}</Markdown>}
+    />
+  );
+};
+
 export const LeftCodeRightMarkdown = ({ children, ...otherProps }) => {
   console.log(children);
   return (
