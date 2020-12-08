@@ -3,7 +3,7 @@ import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, Lis
 import Editor from 'react-simple-code-editor';
 import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
 import {ComponentPlayground} from 'components/ComponentPlayground';
-import {LeftContentRightContent, LeftCodeRightContent, LeftCodeRightMarkdown} from "components/LeftCodeRightContent";
+import {LeftContentRightContent, LeftCodeRightContent, LeftCodeRightMarkdown, LeftContentRightMarkdown, LeftCodeRightCode} from "components/LeftCodeRightContent";
 import InlineCode from "components/InlineCode";
 
 <!-- prettier-ignore-end -->
@@ -158,8 +158,315 @@ import propsExample from "./examples/PropsExample";
 
 ---
 
-import propsExample from "./examples/PropsExample";
+import propsExampleAgain from "./examples/PropsExample";
 
-#### Props Test 2
+#### Component Props
 
-<Editor value={propsExample} highlight={text => text} />
+<LeftCodeRightMarkdown
+  leftSource={propsExampleAgain}
+  leftStyle={{ maxWidth: 700 }}
+>{`
+- **Props** are values passed from parent to child. Think of them as arguments being passed into a function (which is actually the case!)
+- Props are combined into a single object. That \`props\` object is the only parameter for function components. (For class components, it's available as \`this.props\` .)
+- Props are **read-only** inside of a component, in the same way that a plain function should not modify its arguments.
+- Anything can be passed as a prop: primitives, objects, arrays, functions, component types, JSX elements, and more.
+`}</LeftCodeRightMarkdown>
+
+---
+
+import { iamdeveloperOnclick } from "./imagesLoader";
+import basicEventHandlerExample from "./examples/BasicEventHandlerExample";
+
+#### React Events - Deja Vu?
+
+<LeftContentRightMarkdown
+  leftContent={
+    <div>
+      <Image src={iamdeveloperOnclick} />
+      <CodePane source={basicEventHandlerExample} lang="jsx" />
+    </div>
+  }
+>{`
+- React manages event handling internally. 
+  - Event handlers declared in a component are automatically managed by React, using "event delegation" to simplify handling and improve performance. 
+  - It also normalizes event behavior across browsers.
+- React components create event handler callbacks and pass _references_ to those callbacks as props to child components.
+- Event handler prop names are \`camelCased\`: \`onClick\`, \`onMouseMove\`
+`}</LeftContentRightMarkdown>
+
+---
+
+import useStateExample from "./examples/UseStateExample";
+
+#### Component State: The `useState` Hook
+
+<ComponentPlayground code={useStateExample} />
+
+---
+
+import useStateExplained from "./examples/UseStateExplained";
+
+#### Component State: The `useState` Hook
+
+<LeftCodeRightMarkdown leftSource={useStateExplained}>{`
+- **Hooks** allow React function components to have internal state and run additional logic after rendering
+- The **\`useState\`** hook allows components to store and update a value internally
+  - \`useState\` accepts an _initial_ state value, and returns an array with 2 things inside: the _current_ value, and a setter function
+  - Calling \`setState(newValue)\` will queue a re-render with the new value
+- Normally use ES6 "array destructuring" to read the two values into local variables, using whatever names you want for them
+`}</LeftCodeRightMarkdown>
+
+---
+
+import useStateExplained2 from "./examples/UseStateExplained2";
+
+#### Component State: The `useState` Hook
+
+<LeftCodeRightMarkdown leftSource={useStateExplained2}>{`
+- Can call \`useState\` many times in one component
+- Calling \`setState()\` replaces existing value
+  - Can have objects instead of primitives, but you must create a new object immutably and pass it in yourself
+- \`setState()\` always requires a new value by reference
+  - If the value passed to \`setState\` hasn't changed, React will skip the re-render
+`}</LeftCodeRightMarkdown>
+
+---
+
+import useStateExplained3 from "./examples/UseStateExplained3";
+
+#### Component State: `useState` Tips
+
+<LeftCodeRightMarkdown
+  leftSource={useStateExplained3}
+  leftStyle={{ maxWidth: 700 }}
+>{`
+- Creating callbacks "closes over" variable values at time of render
+  - Can cause bugs due to "stale state" if not careful!
+- Be careful with multiple update calls in a row!
+- \`setState\` can accept an "updater" callback instead of a value.
+  - Updater will be called with the latest value as its argument, and should return a new value. Safer to use this if multiple updates depend on each other
+  - Also can avoid having to capture value from parent scope
+`}</LeftCodeRightMarkdown>
+
+---
+
+import listsExample from "./examples/ListsExample";
+
+#### Rendering Lists
+
+<ComponentPlayground code={listsExample} />
+
+- List items must have **keys**, which tell React list item identity
+  - Should be unique per list
+  - Ideally, use item IDs
+  - Fallback, use array indices, but only if data won't reorder
+
+---
+
+import { ryanflorenceJustJS } from "./imagesLoader";
+
+#### It's Just JavaScript
+
+<LeftContentRightMarkdown
+  leftContent={
+    <div>
+      <Image src={ryanflorenceJustJS} />
+    </div>
+  }
+>{`
+- JSX looks like HTML, but is converted to plain JS function calls
+- No special "template syntax" for looping or conditions - use normal JS logic and syntax!
+  - Conditional rendering: \`if/else\`, ternary operator
+  - Looping: \`array.map()\`, \`for\` 
+`}</LeftContentRightMarkdown>
+
+---
+
+import renderLogicExample from "./examples/RenderLogicExample";
+
+#### Render Logic
+
+<LeftCodeRightMarkdown
+  leftSource={renderLogicExample}
+  leftStyle={{ maxWidth: 750 }}
+>{`
+- Render methods can contain arbitrary logic. Different people structure their render methods in different ways. Many use inline logic in their JSX structures, including ternary statements and array mappings.
+- My preferred approach for rendering is to keep all logic outside of the main JSX structure, for clarity
+- Render logic must be "**pure**", without any "side effects"
+  - No AJAX calls, mutating data, random values
+  - **Rendering should only be based on current props and state**
+`}</LeftCodeRightMarkdown>
+
+---
+
+import parentChildExample from "./examples/ParentChildExample";
+
+#### Parent/Child Communication
+
+<ComponentPlayground code={parentChildExample} />
+
+- Parents pass data as props to children
+- Parents pass callbacks to children as props, children communicate to parent by running `props.somethingHappened(data)`
+
+---
+
+import useEffectExample1 from "./examples/UseEffectExample1";
+
+#### Component Effects: The `useEffect` Hook
+
+<LeftCodeRightMarkdown leftSource={useEffectExample1}>{`
+- Component render logic is not allowed to contain side effects
+- Components can run additional logic that _can_ have side effects, _after_ the rendering is done
+- The **\`useEffect\`** hook allows components to run logic that has side effects
+- By default, \`useEffect\` runs its callback after _every_ render
+  - Effects run on brief timeout after render is complete
+`}</LeftCodeRightMarkdown>
+
+---
+
+import useEffectExample2 from "./examples/UseEffectExample2";
+
+#### Component Effects: The `useEffect` Hook
+
+<LeftCodeRightMarkdown leftSource={useEffectExample2}>{`
+- Effect callbacks can return a cleanup function
+  - Typical example: subscribe to an event, then unsubscribe in cleanup
+  - Cleanup function will run before unmount, but also if effect re-runs
+- Effect hook accepts a "dependencies array" argument to limit when the effect callback runs
+- Concept: "What state does this effect sync with?"
+  - \`useEffect(fn)\`: "all state" (run callback after every render)
+  - \`useEffect(fn, [])\`: "all state" (only run callback on mount)
+  - \`useEffect(fn, [value1, value2])\`: "these values" (run on mount, and when any value changes)
+`}</LeftCodeRightMarkdown>
+
+---
+
+#### Rules of Hooks
+
+All React hooks usage **must** follow two important rules!
+
+- **Only call hooks at the top level of a function component**
+  - May not call hooks inside conditional logic, loops, or nested functions
+  - Reason: React needs to track exact order of hooks used, and that order must match every time a function component is rendered
+- **Do not call hooks outside of React function components**
+  - Do not call hooks in plain JS (non-component) functions
+  - May call hooks inside of "custom hooks", but those must also follow hooks rules when used
+
+React "Rules of Hooks" ESLint plugin warns about these - do what it says!
+
+(Note: some hooks data dependency issues can be tricky to solve)
+
+---
+
+import customHooksExample1 from "./examples/CustomHooks1";
+
+#### Custom Hooks
+
+<LeftCodeRightMarkdown leftSource={customHooksExample1}>{`
+- Need some way to share and reuse logic between components
+  - If writing normal JS code, just "extract a function"
+- Can do the same thing with hooks-related code
+`}</LeftCodeRightMarkdown>
+
+---
+
+import customHooksExample2 from "./examples/CustomHooks2";
+
+#### Custom Hooks
+
+<LeftCodeRightMarkdown leftSource={customHooksExample2}>{`
+- Can extract hooks-related code into a new "custom hook" function
+- Just a function that calls React hooks
+- Name must start with \`use\`
+- Many React libraries now ship their own custom hooks
+  - React-Redux: \`useSelector\`, \`useDispatch\`
+  - React-Router: \`useHistory\`, \`useLocation\`, \`useParams\`
+  - Others: \`useClickOutside\`, \`useWindowSize\`, \`useFormState\`, etc
+`}</LeftCodeRightMarkdown>
+
+---
+
+import otherHooksExample from "./examples/OtherHooksExample";
+
+#### Other Built-In Hooks
+
+<LeftCodeRightMarkdown leftSource={otherHooksExample}>{`
+- \`useLayoutEffect(fn, deps)\`
+  - same as \`useEffect\`, but runs callback synchronously during commit phase
+- \`useMemo(fn, deps)\`
+  - recalculates value when deps change
+- \`useCallback(fn, deps)\`
+  - updates callback function reference when deps change
+- \`useRef()\`
+  - provides a mutable "ref object" that persists between renders
+  - Object is \`{current: null}\`
+  - Used as "instance variable", or access to DOM nodes
+  - Plain object, so mutating \`.current\` doesn't trigger re-renders!
+`}</LeftCodeRightMarkdown>
+
+---
+
+import refsExample from "./examples/RefsExample";
+
+#### Access DOM Nodes with Refs
+
+<ComponentPlayground code={refsExample} />
+
+- Pass a ref object as `<element ref={refObj}>`
+- `refObj.current` will be the real DOM node after render is done
+- Escape hatch - use sparingly!
+
+---
+
+import controlledInputs1 from "./examples/ControlledInputs1";
+
+#### Forms and Controlled Inputs
+
+<ComponentPlayground code={controlledInputs1} />
+
+---
+
+#### Forms and Controlled Inputs
+
+- Browsers normally own and update input state based on user interaction
+  - React wants to own updating DOM based on state
+- React uses "controlled inputs" as the idiomatic form input technique
+  - React forces inputs to have values based on state
+  - Useful for validating data immediately
+  - Can still use "uncontrolled" inputs if desired
+- "Controlled inputs" must have:
+  - `value` prop (or equivalent, like `checked` for checkboxes)
+  - `onChange` callback that reads event and updates state
+- Sequence:
+  - React applies `value` to input
+  - User edits input
+  - Browser triggers change event
+  - App code takes _proposed_ new value from event, sets state with new value
+  - React re-renders and applies `value` to input
+- Tips:
+  - Can use `input.name` prop -> `e.target.name` field as a generic key to update fields in an object
+  - Some inputs like checkboxes have other value field, like `checked`
+
+---
+
+import stylingExample from "./examples/StylingExample";
+
+#### Styling Components
+
+<LeftCodeRightMarkdown
+  leftSource={stylingExample}
+  leftStyle={{ maxWidth: 700 }}
+>{`
+Multiple options available for styling React components, including:
+  
+- Inline styles (\`style\` prop):
+  - Applies styles directly to that element, high importance
+  - Style objects have \`camelCased\` properties, unlike CSS
+- Normal CSS classnames
+  - Write CSS, hand-write class names
+  - Common to use the \`classnames()\` util to conditionally combine multiple classnames into one string
+  - Use \`className\` prop in JSX, not \`class\`!
+- CSS Modules:
+  - Build-time conversion of simple CSS file classnames to globally-unique classnames (\`.label\` -> \`"StylingExample_label-a841b7"\`)
+  - Import CSS modules file as JS object, use object fields as classname
+  `}</LeftCodeRightMarkdown>
