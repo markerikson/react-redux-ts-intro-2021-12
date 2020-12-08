@@ -1,9 +1,10 @@
 import React, {
   Component,
   useRef,
+  useState,
   useEffect,
   useLayoutEffect,
-  useState,
+  useCallback,
   useMemo,
 } from "react";
 import isEmpty from "lodash/isEmpty";
@@ -237,11 +238,26 @@ const PlaygroundError = styled(LiveError)`
 const STORAGE_KEY = "spectacle-playground";
 
 function getEnhancedScope(scope = {}) {
-  return { Component, ...scope };
+  return {
+    Component,
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    ...scope,
+  };
 }
 
 export const ComponentPlayground = (
-  { code, previewBackgroundColor, scope, theme = "external", transformCode },
+  {
+    code,
+    previewBackgroundColor,
+    scope,
+    theme = "external",
+    transformCode,
+    codePaneStyle = { flexGrow: 2 },
+  },
   context
 ) => {
   const [actualCode, setCode] = useState(() => (code || defaultCode).trim());
@@ -293,7 +309,7 @@ export const ComponentPlayground = (
     >
       <PlaygroundRow>
         <Title>Live Preview</Title>
-        <Title useDarkTheme={useDarkTheme}>
+        <Title useDarkTheme={useDarkTheme} style={codePaneStyle}>
           Source Code
           <FullscreenButton
             onClick={editorRequestFullscreen}
@@ -312,7 +328,7 @@ export const ComponentPlayground = (
           <PlaygroundError />
         </PlaygroundColumn>
 
-        <PlaygroundColumn>
+        <PlaygroundColumn style={codePaneStyle}>
           <PlaygroundEditor
             className={className}
             theme={undefined}
