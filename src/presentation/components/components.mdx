@@ -470,3 +470,43 @@ Multiple options available for styling React components, including:
   - Build-time conversion of simple CSS file classnames to globally-unique classnames (\`.label\` -> \`"StylingExample_label-a841b7"\`)
   - Import CSS modules file as JS object, use object fields as classname
   `}</LeftCodeRightMarkdown>
+
+---
+
+## Build Apps with React
+
+export default TitleSlide;
+
+---
+
+#### React Ecosystem
+
+- **Focused on the "view" layer**
+  - Entirely possible to build a React app with no other dependencies, but most apps use a variety of additional libraries for specific capabilities.
+  - Good news: can pick exactly the libraries you need for your use cases.
+  - Bad news: need to pick exactly the libraries you need for your use cases.
+- **Commonly used libraries**
+  - AJAX requests: Axios, SuperAgent, Fetch
+  - Routing: React-Router
+  - State management: Redux, MobX
+  - Data/utilities: Immer, Lodash
+- **Build tools**
+  - Babel: compiles ES6/JSX syntax to widely-compatible ES5
+  - Webpack: reads multiple JS module formats, loads non-JS formats such as CSS and images, runs Babel, and generates optimized output bundles for deployment
+  - TypeScript: static type syntax on top of JS; provides compile-time type checking, and can also do JS compile output similar to Babel
+
+---
+
+#### Requirements and Deployment
+
+- **Build tools normally used, but not required**
+  - You can start writing React code with two simple script tags for `react.js` and `react-dom.js` in an HTML file
+  - JSX syntax is the accepted way to write React components, but not required, and other alternatives exist, although rarely used (util functions, templating tools)
+  - Modern JS-based web apps do use many build tools: linter, test runner, compiler, bundler/minifier, etc. These tools are normally written in JS, and so require the Node.js runtime on your dev/build machines to run them.
+- **Deployment**
+  - A normal React app build is just static JS/HTML/CSS files that can be uploaded to any web server. You do not need Node on a server to run React apps.
+  - React apps don't care what language the web app server is written in, as long as it provides an API the client can use to fetch data.
+- **Standard React "Distributions"**
+  - Create-React-App: opinionated build config for Single Page Applications
+  - Next.js: React-based client/server framework, including Server-Side Rendering and Static Site Gen capabilities
+  - Gatsby: focused on Static Site Gen, using GraphQL for data sources

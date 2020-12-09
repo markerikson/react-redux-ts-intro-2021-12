@@ -1,0 +1,150 @@
+<!-- prettier-ignore-start -->
+import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem, Markdown} from 'spectacle';
+import Editor from 'react-simple-code-editor';
+import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
+import {ComponentPlayground} from 'components/ComponentPlayground';
+import {LeftContentRightContent, LeftCodeRightContent, LeftCodeRightMarkdown, LeftContentRightMarkdown, LeftCodeRightCode} from "components/LeftCodeRightContent";
+import InlineCode from "components/InlineCode";
+
+<!-- prettier-ignore-end -->
+
+## State Management with Redux
+
+export default TitleSlide;
+
+---
+
+import { fluxMvc, fluxFlow } from "./imagesLoader";
+
+#### Redux's Predecessor: Flux
+
+<LeftContentRightMarkdown
+  leftContent={
+    <div>
+      <Image src={fluxMvc} />
+      <Image src={fluxFlow} />
+    </div>
+  }
+  leftStyle={{ maxWidth: 600 }}
+>{`
+- A year after releasing React, Facebook announced the "Flux Architecture":
+  - "We found that two-way data bindings led to cascading updates, where changing one object led to another object changing, which could also trigger more updates. As applications grew, these cascading updates made it very difficult to predict what would change as the result of one user interaction. When updates can only change data within a single round, the system as a whole becomes more predictable."
+  - **"Flux is more of a pattern than a framework"**
+- Basic concepts:
+  - Many _data stores_ register with a singleton _dispatcher_. To trigger updates, plain object _actions_ are dispatched, and stores update themselves in response. UI subscribes to stores, reads data on change events. 
+`}</LeftContentRightMarkdown>
+
+---
+
+import { reduxLogo } from "./imagesLoader";
+
+#### What Is Redux?
+
+<Image src={reduxLogo} />
+
+Created by Dan Abramov for a talk at React Europe 2015 to demonstrate the idea of "time-travel debugging". Now the most widely used state management tool for React apps.
+
+- "A predictable state container for JavaScript apps"
+- "Flux taken to its logical conclusion"
+- "A platform for developers to build customized state management for their use-cases, while being able to reuse things like the graphical debugger or middleware"
+
+---
+
+#### What Is Redux?
+
+##### Predictable
+
+Redux attempts to make state mutations predictable by imposing certain restrictions on how and when updates can happen. These restrictions are reflected in the three principles of Redux:
+
+- **Single source of truth**: The state of your whole application is stored as a tree of plain objects and arrays within a single **store**. (How much you put in the store is up to you - not all data needs to live there.)
+- **State is read-only**: State updates are caused by _dispatching_ an action, which is a plain object describing what happened. The rest of the app is not allowed to modify the state tree directly.
+- **Changes are made with pure functions**: All state updates are performed by pure functions called **reducers**, which are `(state, action) => newState`
+
+##### Centralized
+
+Having a single store and single state tree enables many powerful techniques: logging of all updates, API handling, undo/redo, state persistence, "time-travel debugging", error reports with full snapshots of app state, and more.
+
+---
+
+import coreConcepts1 from "./examples/CoreConcepts1";
+
+#### Core Concepts
+
+<LeftCodeRightMarkdown leftSource={coreConcepts1} leftStyle={{ minWidth: 900 }}>{`
+##### State
+App state is stored in plain objects, like this Todo example. There's no "setters", so that different parts of the code can’t change the state arbitrarily. That helps avoid hard-to-reproduce bugs.
+  
+##### Actions
+  
+To change something in the state, you need to dispatch an action. An action is a plain JS object with a \`type\` field. Actions are like events - they should describe "what happened in the app".
+`}</LeftCodeRightMarkdown>
+---
+
+import coreConcepts2 from "./examples/CoreConcepts2";
+
+#### Core Concepts
+
+<LeftCodeRightMarkdown
+  leftSource={coreConcepts2}
+  leftStyle={{ maxWidth: 700 }}
+>{`
+##### Reducers
+- All state update logic lives in functions called **reducers**. Since they're just functions, smaller functions can be composed together into larger functions. Because reducer functions are \`(state, action) => newState\`, they are very easily testable and straightforward to understand.
+- Reducers should be _pure functions_, with no "side effects". That means they should only rely on inputs, and not affect anything external. **Reducers need to update data immutably, by making copies of state and modifying the copies before returning them, rather than directly modifying inputs**.
+`}</LeftCodeRightMarkdown>
+
+---
+
+import coreConcepts3 from "./examples/CoreConcepts3";
+
+#### Core Concepts
+
+<LeftCodeRightMarkdown
+  leftSource={coreConcepts3}
+  leftStyle={{ minWidth: 700 }}
+>{`
+##### Store
+A Redux store contains the current state value. Stores are created using the \`createStore\` method, which takes the root reducer function and an optional preloaded state value.
+  
+Stores have three main methods:
+  
+- \`dispatch\`: starts a state update with the provided action object
+- \`getState\`: returns the current stored state value
+- \`subscribe\`: accepts a callback function that will be run every time an action is dispatched
+`}</LeftCodeRightMarkdown>
+
+---
+
+import coreConcepts4 from "./examples/CoreConcepts4";
+
+#### Core Concepts
+
+<LeftCodeRightMarkdown
+  leftSource={coreConcepts4}
+  leftStyle={{ minWidth: 700 }}
+>{`
+##### Store
+- To trigger a state update, call \`store.dispatch(action\`)
+  - The store will call \`reducer(state, action)\`, and save the result
+- Add subscription callbacks with \`store.subscribe(listener)\`
+  - All subscribers will run after every dispatch
+`}</LeftCodeRightMarkdown>
+
+---
+
+import reduxUI from "./examples/ReduxUiIntegration";
+
+#### Redux UI Integration
+
+<LeftCodeRightMarkdown leftSource={reduxUI} leftStyle={{ minWidth: 800 }}>{`
+Using Redux with a UI requires a few consistent steps:
+  
+1. Create a Redux store
+2. Subscribe to updates
+3. Inside the subscription callback:
+  1. Get the current store state
+  2. Extract the data needed by this piece of UI
+  3. Update the UI with the data
+4. If necessary, render the UI with initial state
+5. Respond to UI inputs by dispatching Redux actions
+`}</LeftCodeRightMarkdown>
