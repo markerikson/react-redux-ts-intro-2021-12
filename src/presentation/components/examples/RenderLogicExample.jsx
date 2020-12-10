@@ -16,9 +16,7 @@ function RenderLogicExample({
     <ListItem key={item.id} item={item} />
   ));
 
-  // 4) Use a single JSX structure, with the temporary
-  //    variables in the correct spots.
-  //    I prefer to avoid logic inline in my JSX.
+  // 4) Use a single JSX structure filled with content
   return (
     <div>
       <div>

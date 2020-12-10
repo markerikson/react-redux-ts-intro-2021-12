@@ -1,122 +1,116 @@
-import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem} from 'spectacle';
+<!-- prettier-ignore-start -->
+import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem, Markdown} from 'spectacle';
+import Editor from 'react-simple-code-editor';
 import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
+import {ComponentPlayground} from 'components/ComponentPlayground';
+import {LeftContentRightContent, LeftCodeRightContent, LeftCodeRightMarkdown, LeftContentRightMarkdown, LeftCodeRightCode} from "components/LeftCodeRightContent";
 import InlineCode from "components/InlineCode";
 
-
+<!-- prettier-ignore-end -->
 
 # Redux Toolkit
 
-export default TitleSlide
+export default TitleSlide;
 
 ---
 
 #### Redux Toolkit
 
 - Common complaints about Redux:
-    - Configuring a Redux store is too complicated
-    - Have to add a lot of packages to do anything useful (`redux-thunk`, `reselect`, etc)
-    - Too easy to accidentally make a mistake like mutating state
-    - Amount of "boilerplate" you need to write (see [Issue #2295](https://github.com/reactjs/redux/issues/2295) for discussion)
-        - Action types
-        - Action creators
-        - Immutable update logic
-        - "Have" to use multiple files
-        - Complex store setup process
-
-
+  - Configuring a Redux store is too complicated
+  - Have to add a lot of packages to do anything useful (`redux-thunk`, `reselect`, etc)
+  - Too easy to accidentally make a mistake like mutating state
+  - Amount of "boilerplate" you need to write (see [Issue #2295](https://github.com/reactjs/redux/issues/2295) for discussion)
+    - Action types
+    - Action creators
+    - Immutable update logic
+    - "Have" to use multiple files
+    - Complex store setup process
 
 ---
 
 #### Redux Toolkit
 
-- Created a new official package called **[Redux Toolkit](https://redux-toolkit.js.org/)**, inspired by 
-  `create-react-app` and `apollo-boost`.  
- - Goals:
-    - Simplify common Redux use cases
-    - Provide good opinionated defaults out of the box
-    - Minimize the amount of code you have to write by hand
-    - Doesn't "hide" that you're using Redux, just makes it easier
-    - Opt-in - can add incrementally to an existing app, or use day 1 on a new project
-    - Provide a great developer experience for TypeScript users
+- Created a new official package called **[Redux Toolkit](https://redux-toolkit.js.org/)**, inspired by
+  `create-react-app` and `apollo-boost`.
+- Goals:
+  - Simplify common Redux use cases
+  - Provide good opinionated defaults out of the box
+  - Minimize the amount of code you have to write by hand
+  - Doesn't "hide" that you're using Redux, just makes it easier
+  - Opt-in - can add incrementally to an existing app, or use day 1 on a new project
+  - Provide a great developer experience for TypeScript users
 - Originally named "Redux Starter Kit", but renamed after 1.0 release
-    - Confusion over "starter kit" naming: boilerplate? only good for beginners?
-    - Renamed to "Redux Toolkit"  (package: `@reduxjs/toolkit` ) for 1.0.4 release
+  - Confusion over "starter kit" naming: boilerplate? only good for beginners?
+  - Renamed to "Redux Toolkit" (package: `@reduxjs/toolkit` ) for 1.0.4 release
 - Written in TypeScript, designed to simplify TS usage patterns
 - Most recent TS and API dev work thanks to co-maintainer Lenz Weber (`@phryneas`)
 
-      
 ##### Useful for <i>all</i> Redux users, both new and experienced!
 
 ---
 
 import configureStore from "./examples/configureStore";
 
-
 #### Redux Toolkit: `configureStore()`
 
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth: 700}}>
-        <CodePane lang="js" source={configureStore} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-                A small wrapper around the Redux <InlineCode>createStore</InlineCode> function:
-                <List>
-                    <ListItem>
-                        Automatically sets up the Redux DevTools extension by default
-                    </ListItem>
-                    <ListItem>
-                        Automatically adds <InlineCode>redux-thunk</InlineCode> by default, plus middleware to check for accidental mutations and non-serializable values
-                    </ListItem>
-                    <ListItem>
-                        Accepts either a root reducer function, or an object of slice reducers and will
-                        automatically call <InlineCode>combineReducers</InlineCode> for you
-                    </ListItem>
-                    <ListItem>
-                        Accepts middlewares and store enhancers as arrays, and composes them properly
-                    </ListItem>
-                </List>
-            </ListItem>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <CodePane lang="js" source={configureStore} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <List style={{ fontSize: "2.5rem" }}>
+      <ListItem>
+        A small wrapper around the Redux <InlineCode>createStore</InlineCode>{" "}
+        function:
+        <List>
+          <ListItem>
+            Automatically sets up the Redux DevTools extension by default
+          </ListItem>
+          <ListItem>
+            Automatically adds <InlineCode>redux-thunk</InlineCode> by default,
+            plus middleware to check for accidental mutations and
+            non-serializable values
+          </ListItem>
+          <ListItem>
+            Accepts either a root reducer function, or an object of slice
+            reducers and will automatically call{" "}
+            <InlineCode>combineReducers</InlineCode> for you
+          </ListItem>
+          <ListItem>
+            Accepts middlewares and store enhancers as arrays, and composes them
+            properly
+          </ListItem>
         </List>
-    </Fill>
+      </ListItem>
+    </List>
+  </Fill>
 </Layout>
-
 
 ---
 
 import configureStore2 from "./examples/configureStore2";
 
-
 #### Redux Toolkit: `configureStore()`
 
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth: 700}}>
-        <CodePane lang="js" source={configureStore2} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-                Options are passed as a "named arguments" object:
-                <List>
-                    <ListItem>
-                        Override middleware list
-                    </ListItem>
-                    <ListItem>
-                        Use an initial state
-                    </ListItem>
-                    <ListItem>
-                        Enable/disable DevTools Extension
-                    </ListItem>
-                    <ListItem>
-                        Provide additional store enhancers
-                    </ListItem>
-                </List>
-            </ListItem>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <CodePane lang="js" source={configureStore2} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <List style={{ fontSize: "2.5rem" }}>
+      <ListItem>
+        Options are passed as a "named arguments" object:
+        <List>
+          <ListItem>Override middleware list</ListItem>
+          <ListItem>Use an initial state</ListItem>
+          <ListItem>Enable/disable DevTools Extension</ListItem>
+          <ListItem>Provide additional store enhancers</ListItem>
         </List>
-    </Fill>
+      </ListItem>
+    </List>
+  </Fill>
 </Layout>
-
 
 ---
 
@@ -124,241 +118,239 @@ import immer from "./examples/immer";
 
 #### Immer
 
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth : 700}}>
-        <CodePane lang="js" source={immer} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-                An immutable update library from Michel Westrate (author of MobX)
-            </ListItem>
-            <ListItem >
-                Uses ES6 Proxies to let you "mutate" your data, but applies the changes immutably
-            </ListItem>
-            <ListItem>
-                Can drastically simplify your immutable update logic
-            </ListItem>
-        </List>
-    </Fill>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <CodePane lang="js" source={immer} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <List style={{ fontSize: "2.5rem" }}>
+      <ListItem>
+        An immutable update library from Michel Westrate (author of MobX)
+      </ListItem>
+      <ListItem>
+        Uses ES6 Proxies to let you "mutate" your data, but applies the changes
+        immutably
+      </ListItem>
+      <ListItem>Can drastically simplify your immutable update logic</ListItem>
+    </List>
+  </Fill>
 </Layout>
 
-
 ---
+
 import createReducer from "./examples/createReducer";
 
 #### Redux Toolkit: `createReducer()`
 
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth : 700}}>
-        <CodePane lang="js" source={createReducer} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-                Accepts a lookup table of action types to reducer functions
-            </ListItem>
-            <ListItem >
-                It uses Immer internally, so your reducers can "mutate" the state!
-            </ListItem>
-            <ListItem>
-                <b>Warning:</b> this only works <i>if</i> you are using the "magic" <InlineCode>createReducer</InlineCode> with Immer
-                inside. Otherwise, these functions <i>are</i> mutating the state!
-            </ListItem>
-        </List>
-    </Fill>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <CodePane lang="js" source={createReducer} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <List style={{ fontSize: "2.5rem" }}>
+      <ListItem>
+        Accepts a lookup table of action types to reducer functions
+      </ListItem>
+      <ListItem>
+        It uses Immer internally, so your reducers can "mutate" the state!
+      </ListItem>
+      <ListItem>
+        <b>Warning:</b> this only works <i>if</i> you are using the "magic"{" "}
+        <InlineCode>createReducer</InlineCode> with Immer inside. Otherwise,
+        these functions <i>are</i> mutating the state!
+      </ListItem>
+    </List>
+  </Fill>
 </Layout>
 
 ---
+
 import createAction from "./examples/createAction";
 
 #### Redux Toolkit: `createAction()`
 
-
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth : 700}}>
-        <CodePane lang="js" source={createAction} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-                Inspired by <InlineCode>redux-actions</InlineCode>
-            </ListItem>
-            <ListItem >
-                Generates an action creator that uses the given type and accepts <InlineCode>payload</InlineCode> as an argument
-            </ListItem>
-            <ListItem>
-               Action creator function overrides <InlineCode>toString()</InlineCode>, so it can be used
-               as the "action type" itself where needed (also exposed as <InlineCode>actionCreator.type</InlineCode>)
-            </ListItem>
-        </List>
-    </Fill>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <CodePane lang="js" source={createAction} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <List style={{ fontSize: "2.5rem" }}>
+      <ListItem>
+        Inspired by <InlineCode>redux-actions</InlineCode>
+      </ListItem>
+      <ListItem>
+        Generates an action creator that uses the given type and accepts{" "}
+        <InlineCode>payload</InlineCode> as an argument
+      </ListItem>
+      <ListItem>
+        Action creator function overrides <InlineCode>toString()</InlineCode>,
+        so it can be used as the "action type" itself where needed (also exposed
+        as <InlineCode>actionCreator.type</InlineCode>)
+      </ListItem>
+    </List>
+  </Fill>
 </Layout>
 
-
 ---
+
 import createSlice from "./examples/createSlice";
 
 #### Redux Toolkit: `createSlice()`
 
-
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth : 700}}>
-        <CodePane lang="js" source={createSlice} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-                Inspired by Eric Elliott's <InlineCode>autodux</InlineCode> project
-            </ListItem>
-            <ListItem >
-                Accepts an object of reducers, and returns auto-generated action creators, action types, and a reducer function
-            </ListItem>
-            <ListItem>
-               Uses our "magic" <InlineCode>createReducer</InlineCode> utility, so that your reducers can "mutate" their state
-            </ListItem>
-            <ListItem>
-                Makes it easy to use the "ducks" pattern (default export reducer, named export action creators)
-            </ListItem>
-        </List>
-    </Fill>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <CodePane lang="js" source={createSlice} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <List style={{ fontSize: "2.5rem" }}>
+      <ListItem>
+        Inspired by Eric Elliott's <InlineCode>autodux</InlineCode> project
+      </ListItem>
+      <ListItem>
+        Accepts an object of reducers, and returns auto-generated action
+        creators, action types, and a reducer function
+      </ListItem>
+      <ListItem>
+        Uses our "magic" <InlineCode>createReducer</InlineCode> utility, so that
+        your reducers can "mutate" their state
+      </ListItem>
+      <ListItem>
+        Makes it easy to use the "ducks" pattern (default export reducer, named
+        export action creators)
+      </ListItem>
+    </List>
+  </Fill>
 </Layout>
 
 ---
+
 import createSlice2 from "./examples/createSlice2";
 
 #### Redux Toolkit: `createSlice()`
 
-
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth : 700}}>
-        <CodePane lang="js" source={createSlice2} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-                Usage patterns:
-                <List>
-                    <ListItem>
-                        Can handle other actions types using <InlineCode>extraReducers</InlineCode> 
-                    </ListItem>
-                    <ListItem>
-                        Slices are just actions + reducers - write side effects like thunks separately
-                        and use the generated action creators, same as usual
-                    </ListItem>
-                </List>
-            </ListItem>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <CodePane lang="js" source={createSlice2} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <List style={{ fontSize: "2.5rem" }}>
+      <ListItem>
+        Usage patterns:
+        <List>
+          <ListItem>
+            Can handle other actions types using{" "}
+            <InlineCode>extraReducers</InlineCode>
+          </ListItem>
+          <ListItem>
+            Slices are just actions + reducers - write side effects like thunks
+            separately and use the generated action creators, same as usual
+          </ListItem>
         </List>
-    </Fill>
+      </ListItem>
+    </List>
+  </Fill>
 </Layout>
 
-
 ---
+
 import createSelector from "./examples/createSelector";
 
 #### Redux Toolkit: `createSelector()`
 
-
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth : 700}}>
-        <CodePane lang="js" source={createSelector} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-                Re-exports the <InlineCode>createSelector</InlineCode> function from Reselect
-            </ListItem>
-        </List>
-    </Fill>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <CodePane lang="js" source={createSelector} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <List style={{ fontSize: "2.5rem" }}>
+      <ListItem>
+        Re-exports the <InlineCode>createSelector</InlineCode> function from
+        Reselect
+      </ListItem>
+    </List>
+  </Fill>
 </Layout>
 
 ---
+
 import createAsyncThunk from "./examples/createAsyncThunk";
 
 #### Redux Toolkit: `createAsyncThunk()`
 
-
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth : 700}}>
-        <CodePane lang="js" source={createAsyncThunk} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-               Standard async thunk pattern:
-                <List>
-                    <ListItem>
-                        Dispatch "loading" action
-                    </ListItem>
-                    <ListItem>
-                        Dispatch either "success" or "failure" actions based on result
-                    </ListItem>
-                </List>
-            </ListItem>
-            <ListItem>
-              <InlineCode>createAsyncThunk</InlineCode> implements that pattern:
-                <List>
-                    <ListItem>
-                        Accepts an action type string prefix and a "payload creator" callback that returns a Promise
-                    </ListItem>
-                    <ListItem>
-                        Autogenerates actions for <InlineCode>pending</InlineCode>, <InlineCode>fulfilled</InlineCode>,
-                        and <InlineCode>rejected</InlineCode> cases
-                    </ListItem>
-                    <ListItem>
-                      Auto dispatches those actions based on promise resolution lifecycle
-                    </ListItem>
-                </List>
-            </ListItem>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <CodePane lang="js" source={createAsyncThunk} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <List style={{ fontSize: "2.5rem" }}>
+      <ListItem>
+        Standard async thunk pattern:
+        <List>
+          <ListItem>Dispatch "loading" action</ListItem>
+          <ListItem>
+            Dispatch either "success" or "failure" actions based on result
+          </ListItem>
         </List>
-    </Fill>
+      </ListItem>
+      <ListItem>
+        <InlineCode>createAsyncThunk</InlineCode> implements that pattern:
+        <List>
+          <ListItem>
+            Accepts an action type string prefix and a "payload creator"
+            callback that returns a Promise
+          </ListItem>
+          <ListItem>
+            Autogenerates actions for <InlineCode>pending</InlineCode>,{" "}
+            <InlineCode>fulfilled</InlineCode>, and{" "}
+            <InlineCode>rejected</InlineCode> cases
+          </ListItem>
+          <ListItem>
+            Auto dispatches those actions based on promise resolution lifecycle
+          </ListItem>
+        </List>
+      </ListItem>
+    </List>
+  </Fill>
 </Layout>
 
-
 ---
+
 import createEntityAdapter from "./examples/createEntityAdapter";
 
 #### Redux Toolkit: `createEntityAdapter()`
 
-
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth : 700}}>
-        <CodePane lang="js" source={createEntityAdapter} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-               Redux docs recommend "normalizing" state structure:
-                <List>
-                    <ListItem>
-                        Single copy of each item
-                    </ListItem>
-                    <ListItem>
-                        Track items in an object mapping IDs to items
-                    </ListItem>
-                </List>
-            </ListItem>
-            <ListItem>
-              <InlineCode>createEntityAdapter</InlineCode> implements that pattern:
-                <List>
-                    <ListItem>
-                        Defines prebuilt reducers for common CRUD logic (add / update / delete, one/many)
-                    </ListItem>
-                    <ListItem>
-                        Reducers can be used directly or as "mutating" helpers
-                    </ListItem>
-                    <ListItem>
-                      Maintains IDs array, with optional sorting based on items
-                    </ListItem>
-                    <ListItem>
-                      Generates basic set of selector functions
-                    </ListItem>
-                </List>
-            </ListItem>
+<Layout style={{ flexWrap: "wrap" }}>
+  <Fill style={{ marginRight: 5, minWidth: 700 }}>
+    <CodePane lang="js" source={createEntityAdapter} />
+  </Fill>
+  <Fill style={{ marginLeft: 5 }}>
+    <List style={{ fontSize: "2.5rem" }}>
+      <ListItem>
+        Redux docs recommend "normalizing" state structure:
+        <List>
+          <ListItem>Single copy of each item</ListItem>
+          <ListItem>Track items in an object mapping IDs to items</ListItem>
         </List>
-    </Fill>
+      </ListItem>
+      <ListItem>
+        <InlineCode>createEntityAdapter</InlineCode> implements that pattern:
+        <List>
+          <ListItem>
+            Defines prebuilt reducers for common CRUD logic (add / update /
+            delete, one/many)
+          </ListItem>
+          <ListItem>
+            Reducers can be used directly or as "mutating" helpers
+          </ListItem>
+          <ListItem>
+            Maintains IDs array, with optional sorting based on items
+          </ListItem>
+          <ListItem>Generates basic set of selector functions</ListItem>
+        </List>
+      </ListItem>
+    </List>
+  </Fill>
 </Layout>
-
 
 ---
 
@@ -369,7 +361,6 @@ import createEntityAdapter from "./examples/createEntityAdapter";
   - Usually results in connected components not re-rendering, or bad data when debugging
   - _Really_ hard to figure out where this happened... or is it?
 
-  
 ---
 
 #### Redux Toolkit: Safety Checks
@@ -385,38 +376,18 @@ import createEntityAdapter from "./examples/createEntityAdapter";
 - RTK also adds a check for "non-serializable values" in state and actions by default
   - Created by me, modeled on the mutation check middleware
 
-
 ---
 
 #### Redux Toolkit: Roadmap
 
-- Current version: 1.4.0
-- Potential additions:
-  - ["Listener callback" middleware to complement thunks (PR #547)](https://github.com/reduxjs/redux-toolkit/pull/547)
-  - [Defining thunks inside `createSlice` (PR #637)](https://github.com/reduxjs/redux-toolkit/pull/637)
-  - [Type helper to bind store types to `useDispatch`, etc (PR #684)](https://github.com/reduxjs/redux-toolkit/pull/684)
-  - ["CRUD adapter" for standard REST-type endpoints (issue #603)](https://github.com/reduxjs/redux-toolkit/issues/603)
-  - [Alternate side effects approaches (issue #349)](https://github.com/reduxjs/redux-toolkit/issues/349)
-  - React hooks like `useAsyncThunk`?
-- Would like to refactor tutorials
-  - Move TS example from "Advanced Tutorial" to its own document
-  - Move "migrate from Redux core" to its own usage guide page
-
-
+- Current version: 1.5.0
+- New experimental API: [RTK Query](https://rtk-query-docs.netlify.app)
+  - Advanced data fetching and caching library built for Redux Toolkit
+  - Just released as alpha - will iterate on API, then merge into RTK
 
 ---
 
-
-# Redux DevTools Extension
-
-
-export default TitleSlide
-
-
----
-
-
-import {actionStackTraces} from "./imagesLoader";
+import { actionStackTraces } from "./imagesLoader";
 
 #### Redux DevTools Extension
 
@@ -431,20 +402,9 @@ import {actionStackTraces} from "./imagesLoader";
   - Prototyped by me, polished and merged by Mihail Diordiev
   - _Not_ enabled by default - need to call `composeWithDevTools({trace : true})`
   - RTK's `configureStore` does turn this on automatically
-  
+
 ---
 
 #### Action Stack Traces
 
-<Image src={actionStackTraces}/>
-
-
----
-
-#### Redux Templates for Create-React-App 
-
-- Two Redux templates available for CRA:
-  - https://github.com/reduxjs/cra-template-redux
-  - https://github.com/reduxjs/cra-template-redux-typescript 
-- Both come with RTK and React-Redux hooks as default
-- `create-react-app --template redux` (or `--template redux-typescript`)
+<Image src={actionStackTraces} />

@@ -132,6 +132,25 @@ import coreConcepts4 from "./examples/CoreConcepts4";
 
 ---
 
+import thunkMiddleware from "./examples/ThunkMiddleware";
+
+#### Redux and Async Logic
+
+<LeftCodeRightMarkdown
+  leftSource={thunkMiddleware}
+  leftStyle={{ minWidth: 800 }}
+>{`
+##### Middleware
+- Middleware are store plugins that wrap \`dispatch\`
+- Can be used for many use cases, but primarily for async logic
+- Redux "thunk" middleware is the standard async middleware
+  - Allows passing _functions_ to \`dispatch\` instead of actions
+  - Functions receive \(dispatch, getState)\` as args
+  - Can do any sync or async logic inside
+`}</LeftCodeRightMarkdown>
+
+---
+
 import reduxUI from "./examples/ReduxUiIntegration";
 
 #### Redux UI Integration

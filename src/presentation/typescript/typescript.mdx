@@ -94,6 +94,74 @@ import tssyntax6 from "./examples/tssyntax6";
 
 ---
 
+#### TypeScript Usage Tips
+
+- Goal: **"80% sweet spot" of type coverage!**
+  - See "Lessons and Takeaways" section in Mark's post [**Learning and Using TS as an App Dev and Lib Maintainer**](https://blog.isquaredsoftware.com/2019/11/blogged-answers-learning-and-using-typescript/#lessons-opinions-and-takeaways)
+  - Want correct types, but not wasted effort
+- Aim to type: function arguments / return values, React component props and state, API responses, Redux state
+- Infer values as much as possible - don't insist on declaring types for _every_ variable!
+  - Sometimes may want to declare function return types instead of inferring, just to be sure they're correct or catch errors
+- Avoid use of `any` and `// @ts-ignore`... _unless_ absolutely necessary
+  - valid escape hatches, but they're a last resort
+- On the other hand, prefer using these escape hatches instead of wasting hours fighting TS compiler
+  - You know what the code does - sometimes hard to convince the compiler you're right
+  - Can use a type like `type $FixTypeLater = any` as a placeholder
+
+---
+
+import reactExample1 from "./examples/ReactExample1";
+
+#### Typing React Components
+
+<LeftCodeRightMarkdown
+  leftSource={reactExample1}
+  language="typescript"
+  leftStyle={{ minWidth: 850 }}
+>{`
+- [Read and follow the React TypeScript Cheatsheet!](https://github.com/typescript-cheatsheets/react)
+- Declare interfaces for React props
+- Infer or declare types for \`useState\`
+- Declare types for event handlers if declaring separately
+- \`React.ReactNode\`: JSX element, string, number, null
+- \`React.CSSProperties\`: type for \`style\` prop
+`}</LeftCodeRightMarkdown>
+
+---
+
+import reduxExample1 from "./examples/ReduxExample1";
+
+#### Typing Redux
+
+<LeftCodeRightMarkdown
+  leftSource={reduxExample1}
+  language="typescript"
+  leftStyle={{ minWidth: 750 }}
+>{`
+- [Read and follow the Redux Toolkit "Usage with TS" docs](https://redux-toolkit.js.org/usage/usage-with-typescript)
+- Declare data types in slice files
+- Declare types of initial state for slices
+- Declare type of actions in reducers as \`PayloadAction<TypeOfPayloadHere>\`
+`}</LeftCodeRightMarkdown>
+
+---
+
+import reduxExample2 from "./examples/ReduxExample2";
+
+#### Typing React-Redux
+
+<LeftCodeRightMarkdown
+  leftSource={reduxExample2}
+  language="typescript"
+  leftStyle={{ minWidth: 850 }}
+>{`
+- Declare \`(state: RootState)\` as arg in selector functions
+- May need to declare \`const dispatch : AppDispatch = useDispatch()\` in components to be able to dispatch thunks properly
+  - Note: Can define pre-typed versions of both of these hooks, then import those pre-typed hooks everywhere - see [React-Redux "Usage with TS" docs page](https://react-redux.js.org/using-react-redux/static-typing)
+`}</LeftCodeRightMarkdown>
+
+---
+
 #### TypeScript: Using Libraries
 
 - Libraries may include an `index.d.ts` file containing type declarations

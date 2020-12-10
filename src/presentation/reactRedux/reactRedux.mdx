@@ -1,28 +1,33 @@
-import { CodePane, List, ListItem, Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, BlockQuote, Quote} from 'spectacle';
+<!-- prettier-ignore-start -->
+import {  Cite, Slide, Heading, Text, Layout, Fill, Image, Appear, CodePane, List, ListItem, Markdown} from 'spectacle';
+import Editor from 'react-simple-code-editor';
 import {DarkSlide, CodeSlide, TitleSlide} from 'components/slides';
+import {ComponentPlayground} from 'components/ComponentPlayground';
+import {LeftContentRightContent, LeftCodeRightContent, LeftCodeRightMarkdown, LeftContentRightMarkdown, LeftCodeRightCode} from "components/LeftCodeRightContent";
 import InlineCode from "components/InlineCode";
 
+<!-- prettier-ignore-end -->
 
 # React-Redux
 
-export default TitleSlide
+export default TitleSlide;
 
 ---
 
-#### A Deep Dive into React-Redux
+#### React-Redux
 
-<br />
+- Since Redux is UI-framework agnostic, need a "bindings" library to integrate with a given UI layer
+- React-Redux provides bindings to let React components interact with the Redux store
+- Only UI bindings library maintained by the Redux team
 
 ##### Mark's Dev Blog: <br /> **[The History and Implementation of React-Redux](https://blog.isquaredsoftware.com/2018/11/react-redux-history-implementation/)**
 
 - Integrating Redux with a UI
   - What does React-Redux even do for you, and why do we need "UI bindings" in the first place?
-  - What does `connect` do internally?
+  - How does it work internally?
 - Development History of the React-Redux API
   - Initial design constraints
   - API and implementation changes over time
-- Implementation characteristics of v4, v5, v6, v7, and v7.1 with hooks
-
 
 ---
 
@@ -31,116 +36,67 @@ export default TitleSlide
 - Goals:
   - v6 architecture tried to use context for state propagation, which had performance problems
   - Switch back to per-component Redux store subscriptions for better performance
-  - Enable future implementation of a React-Redux hooks API 
+  - Enable future implementation of a React-Redux hooks API
 - Behavior and implementation:
   - Rewrote `connect` using React hooks API + internal Redux store subscriptions
-  - Used React renderer batching from ReactDOM and React Native 
+  - Used React renderer batching from ReactDOM and React Native
   - Released in spring 2019
 
 ---
-  
+
 #### React-Redux v7.1: Hooks!
 
 - Goal: eventually design and ship a public `useRedux()`-type hooks API
-    - Bikeshedding issue thread: [Issue #1179: Discussion: Potential Hooks API Design](https://github.com/reduxjs/react-redux/issues/1179)
-    - Extensive discussions around potential API designs and implementation constraints
+  - Bikeshedding issue thread: [Issue #1179: Discussion: Potential Hooks API Design](https://github.com/reduxjs/react-redux/issues/1179)
+  - Extensive discussions around potential API designs and implementation constraints
 - Behavior and implementation:
-    - Settled on two primary hooks: `useSelector` and `useDispatch`
-    - Unlike `connect`, cannot enforce top-down nested subscriptions
-    - Reference (`===`) equality checks for selectors instead of shallow equality
-    - No action creator binding 
-    - No automatic wrapping of components to avoid re-renders
+  - Settled on two primary hooks: `useSelector` and `useDispatch`
+  - Unlike `connect`, cannot enforce top-down nested subscriptions
+  - Reference (`===`) equality checks for selectors instead of shallow equality
+  - No action creator binding
+  - No automatic wrapping of components to avoid re-renders
 - **We now recommend using the hooks API as the default approach**
   - `connect` is supported indefinitely, but no plans for further changes
 - The hooks API has a different set of tradeoffs than `connect` does:
   - [Thoughts on React Hooks, Redux, and Separation of Concerns](https://blog.isquaredsoftware.com/2019/07/blogged-answers-thoughts-on-hooks/)
   - [ReactBoston 2019: Hooks, HOCs, and Tradeoffs](https://blog.isquaredsoftware.com/2019/09/presentation-hooks-hocs-tradeoffs/)
 
-
-
 ---
+
 import useSelector from "./examples/useSelector";
 
 #### React-Redux: `useSelector()`
 
-
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth : 700}}>
-        <CodePane lang="jsx" source={useSelector} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-               Extracts a value from the Redux state for use in this component
-                <List>
-                    <ListItem>
-                        Accepts a "selector" function as its argument
-                    </ListItem>
-                    <ListItem>
-                        Subscribes to the store and re-runs the selector whenever the store state changes
-                    </ListItem>
-                </List>
-            </ListItem>
-            <ListItem>
-              Differences from <InlineCode>connect</InlineCode> and <InlineCode>mapState</InlineCode>:
-                <List>
-                    <ListItem>
-                        Uses reference equality by default (also takes an optional equality comparison argument)
-                    </ListItem>
-                    <ListItem>
-                        Can be called multiple times in one component
-                    </ListItem>
-                    <ListItem>
-                      Don't have to return an object (and should prefer returning single values)
-                    </ListItem>
-                </List>
-            </ListItem>
-        </List>
-    </Fill>
-</Layout>
-
+<LeftCodeRightMarkdown leftSource={useSelector}>{`
+- Extracts a value from the Redux state for use in this component
+  - Accepts a "selector" function as its argument
+  - Subscribes to the store and re-runs the selector whenever the store state changes
+- Differences from \`connect\` and \`mapState\`:
+  - Uses reference equality by default (also takes an optional equality comparison argument)
+  - Can be called multiple times in one component
+  - Don't have to return an object (and should prefer returning single values)
+`}</LeftCodeRightMarkdown>
 
 ---
+
 import useDispatch from "./examples/useDispatch";
 
 #### React-Redux: `useDispatch()`
 
-
-<Layout  style={{flexWrap : "wrap"}}>
-    <Fill style={{marginRight : 5, minWidth : 700}}>
-        <CodePane lang="jsx" source={useDispatch} />
-    </Fill>
-    <Fill style={{marginLeft : 5}}>
-        <List style={{fontSize : "2.5rem"}}>
-            <ListItem>
-               Returns the store's <InlineCode>dispatch</InlineCode> method
-            </ListItem>
-            <ListItem>
-              Differences from <InlineCode>connect</InlineCode> and <InlineCode>mapDispatch</InlineCode>:
-                <List>
-                    <ListItem>
-                        Equivalent to calling <InlineCode>connect</InlineCode> with no <InlineCode>mapDispatch</InlineCode> argument
-                    </ListItem>
-                    <ListItem>
-                        No "binding action creators" any more - up to you to call <InlineCode>dispatch</InlineCode> in your own handlers
-                    </ListItem>
-                </List>
-            </ListItem>
-        </List>
-    </Fill>
-</Layout>
-
-
-
+<LeftCodeRightMarkdown leftSource={useDispatch}>{`
+- Returns the store's \`dispatch\` method
+- Differences from \`connect\` and \`mapDispatch\`:
+  - Equivalent to calling \`connect\` with no \`mapDispatch\` argument
+  - No "binding action creators" any more - up to you to call \`dispatch()\` in your own handlers
+`}</LeftCodeRightMarkdown>
 
 ---
-  
-#### React-Redux vNext?
 
-- Current version: v7.2
-  - Stable, no immediate plans for changes 
-- Long-term question: Concurrent Mode and Suspense
-  - External state tools will have issues with Concurrent Mode because React wants to own state updates and reorder them
-  - React team created [new experimental `useMutableSource` hook](https://github.com/reactjs/rfcs/pull/147) specifically for use with external state tools like Redux
-- Will likely build React-Redux v8 around `useMutableSource` whenever CM finally is ready
-  - Not 100% sure that `connect` will be fully CM-compat (might just take extra work)
+import provider from "./examples/Provider";
+
+#### React-Redux: `<Provider>`
+
+<LeftCodeRightMarkdown leftSource={provider}>{`
+- Makes the Redux store accessible to all components in the app
+- Should be set up in app entry point file, and wrap entire app component
+`}</LeftCodeRightMarkdown>
