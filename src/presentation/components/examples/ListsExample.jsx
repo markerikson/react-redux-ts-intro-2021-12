@@ -1,21 +1,32 @@
-function ListsExample() {
-  const [speakers, setSpeakers] = useState(allSpeakers);
+function ListsExample({speakers}) {
+  const [shouldSort, setShouldSort] = useState(false);
+  const [filter, setFilter] = useState("");
 
   const onSortClicked = () => {
-    const sortedSpeakers = speakers.slice().sort();
-    setSpeakers(sortedSpeakers);
+    setShouldSort(true);
   };
 
   const onScottsClicked = () => {
-    const onlyScotts = speakers.filter(name => name.startsWith("Scott"));
-    setSpeakers(onlyScotts);
+    setFilter("Scott");
   };
 
   const onResetClicked = () => {
-    setSpeakers(allSpeakers);
+    setShouldSort(false);
+    setFilter("");
   };
 
-  const speakerListItems = speakers.map(speaker => (
+  let speakersToDisplay = speakers;
+
+  if (filter) {
+    speakersToDisplay = speakersToDisplay.filter(name => name.startsWith(filter));
+  }
+
+  if (shouldSort) {
+    speakersToDisplay = speakersToDisplay.slice().sort()
+  }
+
+
+  const speakerListItems = speakersToDisplay.map(speaker => (
     <li key={speaker}>{speaker}</li>
   ));
 
@@ -47,4 +58,4 @@ const allSpeakers = [
   "Scott Hunter",
 ];
 
-render(<ListsExample />);
+render(<ListsExample speakers={allSpeakers}/>);

@@ -1,11 +1,12 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-const selectA = state => state.a;
-const selectB = state => state.b;
+const selectTodos = state => state.todos;
+const selectStatusFilter = state => state.filters.status;
 
-const selectABC = createSelector(
-  [selectA, selectB],
-  (a, b, someField) => {
-    return a + b;
+const selectFilteredTodos = createSelector(
+  [selectTodos, selectStatusFilter],
+  (todos, filter) => {
+    // Only recalculates output result when inputs changed
+    return todos.filter(t => t.status === filter);
   }
 );

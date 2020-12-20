@@ -261,7 +261,7 @@ export const ComponentPlayground = (
   context
 ) => {
   const [actualCode, setCode] = useState(() => (code || defaultCode).trim());
-  const [actualScope, setScope] = useState(() => getEnhancedScope(scope));
+  const [actualScope] = useState(() => getEnhancedScope(scope));
 
   const fullscreenRef = useRef(null);
 

@@ -126,6 +126,8 @@ import reactExample1 from "./examples/ReactExample1";
 - Declare types for event handlers if declaring separately
 - \`React.ReactNode\`: JSX element, string, number, null
 - \`React.CSSProperties\`: type for \`style\` prop
+- Gotcha: TS doesn't like React function components that only return an array
+  - Workaround: wrap array in \`<React.Fragment>\`
 `}</LeftCodeRightMarkdown>
 
 ---

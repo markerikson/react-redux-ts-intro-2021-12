@@ -248,6 +248,7 @@ import useStateExplained3 from "./examples/UseStateExplained3";
   - Also can avoid having to capture value from parent scope
 `}</LeftCodeRightMarkdown>
 
+
 ---
 
 import listsExample from "./examples/ListsExample";
@@ -256,10 +257,25 @@ import listsExample from "./examples/ListsExample";
 
 <ComponentPlayground code={listsExample} />
 
+
+
+---
+
+import listsExplained from "./examples/ListsExplained";
+
+#### Rendering Lists
+
+<LeftCodeRightMarkdown
+  leftSource={listsExplained}
+  leftStyle={{ minWidth: 850 }}
+>{`
 - List items must have **keys**, which tell React list item identity
   - Should be unique per list
   - Ideally, use item IDs
   - Fallback, use array indices, but only if data won't reorder
+- General tip: prefer "deriving data" while rendering, vs storing derived data in state
+  - store description of how to filter or sort, not filtered/sorted values
+`}</LeftCodeRightMarkdown>
 
 ---
 
@@ -305,8 +321,22 @@ import parentChildExample from "./examples/ParentChildExample";
 
 <ComponentPlayground code={parentChildExample} />
 
+
+
+
+---
+
+import parentChildExplained from "./examples/ParentChildExplained";
+
+#### Parent/Child Communication
+
+<LeftCodeRightMarkdown
+  leftSource={parentChildExplained}
+  leftStyle={{ minWidth: 850 }}
+>{`
 - Parents pass data as props to children
-- Parents pass callbacks to children as props, children communicate to parent by running `props.somethingHappened(data)`
+- Parents pass callbacks to children as props, children communicate to parent by running \`props.somethingHappened(data)\`
+`}</LeftCodeRightMarkdown>
 
 ---
 

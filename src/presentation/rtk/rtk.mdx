@@ -54,38 +54,17 @@ import configureStore from "./examples/configureStore";
 
 #### Redux Toolkit: `configureStore()`
 
-<Layout style={{ flexWrap: "wrap" }}>
-  <Fill style={{ marginRight: 5, minWidth: 700 }}>
-    <CodePane lang="js" source={configureStore} />
-  </Fill>
-  <Fill style={{ marginLeft: 5 }}>
-    <List style={{ fontSize: "2.5rem" }}>
-      <ListItem>
-        A small wrapper around the Redux <InlineCode>createStore</InlineCode>{" "}
-        function:
-        <List>
-          <ListItem>
-            Automatically sets up the Redux DevTools extension by default
-          </ListItem>
-          <ListItem>
-            Automatically adds <InlineCode>redux-thunk</InlineCode> by default,
-            plus middleware to check for accidental mutations and
-            non-serializable values
-          </ListItem>
-          <ListItem>
-            Accepts either a root reducer function, or an object of slice
-            reducers and will automatically call{" "}
-            <InlineCode>combineReducers</InlineCode> for you
-          </ListItem>
-          <ListItem>
-            Accepts middlewares and store enhancers as arrays, and composes them
-            properly
-          </ListItem>
-        </List>
-      </ListItem>
-    </List>
-  </Fill>
-</Layout>
+<LeftCodeRightMarkdown
+  leftSource={configureStore}
+  leftStyle={{  }}
+>{`
+- A small wraper around the Redux \`createStore\` function:
+  - Automatically sets up the Redux DevTools extension by default
+  - Automatically adds \`redux-thunk\` by default, plus middleware to check for accidental mutations and non-serializable values
+  - Accepts either a root reducer function, or an object of slice reducers and will automatically call \`combineReducers\` for you
+  - Accepts middlewares and store enhancers as arrays, and composes them properly
+`}</LeftCodeRightMarkdown>
+
 
 ---
 
@@ -93,24 +72,17 @@ import configureStore2 from "./examples/configureStore2";
 
 #### Redux Toolkit: `configureStore()`
 
-<Layout style={{ flexWrap: "wrap" }}>
-  <Fill style={{ marginRight: 5, minWidth: 700 }}>
-    <CodePane lang="js" source={configureStore2} />
-  </Fill>
-  <Fill style={{ marginLeft: 5 }}>
-    <List style={{ fontSize: "2.5rem" }}>
-      <ListItem>
-        Options are passed as a "named arguments" object:
-        <List>
-          <ListItem>Override middleware list</ListItem>
-          <ListItem>Use an initial state</ListItem>
-          <ListItem>Enable/disable DevTools Extension</ListItem>
-          <ListItem>Provide additional store enhancers</ListItem>
-        </List>
-      </ListItem>
-    </List>
-  </Fill>
-</Layout>
+<LeftCodeRightMarkdown
+  leftSource={configureStore2}
+  leftStyle={{ minWidth: 700 }}
+>{`
+- Options are passed as a "named arguments" object:
+  - Override middleware list
+  - Use an initial state
+  - Enable/disable DevTools Extension
+  - Provide additional store enhancers
+`}</LeftCodeRightMarkdown>
+
 
 ---
 
@@ -118,23 +90,14 @@ import immer from "./examples/immer";
 
 #### Immer
 
-<Layout style={{ flexWrap: "wrap" }}>
-  <Fill style={{ marginRight: 5, minWidth: 700 }}>
-    <CodePane lang="js" source={immer} />
-  </Fill>
-  <Fill style={{ marginLeft: 5 }}>
-    <List style={{ fontSize: "2.5rem" }}>
-      <ListItem>
-        An immutable update library from Michel Westrate (author of MobX)
-      </ListItem>
-      <ListItem>
-        Uses ES6 Proxies to let you "mutate" your data, but applies the changes
-        immutably
-      </ListItem>
-      <ListItem>Can drastically simplify your immutable update logic</ListItem>
-    </List>
-  </Fill>
-</Layout>
+<LeftCodeRightMarkdown
+  leftSource={immer}
+  leftStyle={{ minWidth: 700 }}
+>{`
+- An immutable update library from Michel Westrate (author of MobX)
+  - Uses ES6 Proxies to let you "mutate" your data, but applies the changes immutably
+  - Can drastically simplify your immutable update logic
+`}</LeftCodeRightMarkdown>
 
 ---
 
@@ -142,26 +105,15 @@ import createReducer from "./examples/createReducer";
 
 #### Redux Toolkit: `createReducer()`
 
-<Layout style={{ flexWrap: "wrap" }}>
-  <Fill style={{ marginRight: 5, minWidth: 700 }}>
-    <CodePane lang="js" source={createReducer} />
-  </Fill>
-  <Fill style={{ marginLeft: 5 }}>
-    <List style={{ fontSize: "2.5rem" }}>
-      <ListItem>
-        Accepts a lookup table of action types to reducer functions
-      </ListItem>
-      <ListItem>
-        It uses Immer internally, so your reducers can "mutate" the state!
-      </ListItem>
-      <ListItem>
-        <b>Warning:</b> this only works <i>if</i> you are using the "magic"{" "}
-        <InlineCode>createReducer</InlineCode> with Immer inside. Otherwise,
-        these functions <i>are</i> mutating the state!
-      </ListItem>
-    </List>
-  </Fill>
-</Layout>
+<LeftCodeRightMarkdown
+  leftSource={createReducer}
+  leftStyle={{ minWidth: 700 }}
+>{`
+- Accepts a lookup table of action types to reducer functions
+- It uses Immer internally, so your reducers can "mutate" the state!
+- **Warning:** this only works _if_ you are using the "magic" \`createReducer\` with Immer inside. Otherwise, these functions \`are\` mutating the state!
+`}</LeftCodeRightMarkdown>
+
 
 ---
 
@@ -169,27 +121,15 @@ import createAction from "./examples/createAction";
 
 #### Redux Toolkit: `createAction()`
 
-<Layout style={{ flexWrap: "wrap" }}>
-  <Fill style={{ marginRight: 5, minWidth: 700 }}>
-    <CodePane lang="js" source={createAction} />
-  </Fill>
-  <Fill style={{ marginLeft: 5 }}>
-    <List style={{ fontSize: "2.5rem" }}>
-      <ListItem>
-        Inspired by <InlineCode>redux-actions</InlineCode>
-      </ListItem>
-      <ListItem>
-        Generates an action creator that uses the given type and accepts{" "}
-        <InlineCode>payload</InlineCode> as an argument
-      </ListItem>
-      <ListItem>
-        Action creator function overrides <InlineCode>toString()</InlineCode>,
-        so it can be used as the "action type" itself where needed (also exposed
-        as <InlineCode>actionCreator.type</InlineCode>)
-      </ListItem>
-    </List>
-  </Fill>
-</Layout>
+<LeftCodeRightMarkdown
+  leftSource={createAction}
+  leftStyle={{ minWidth: 700 }}
+>{`
+- Inspired by \`redux-actions\`
+- Generates an action creator that uses the given type and accepts \`payload\` as an argument
+- Action creator function overrides \`toString()\`, so it can be used as the "action type" itself where needed (also exposed as \`actionCreator.type\`)
+`}</LeftCodeRightMarkdown>
+
 
 ---
 
@@ -197,30 +137,15 @@ import createSlice from "./examples/createSlice";
 
 #### Redux Toolkit: `createSlice()`
 
-<Layout style={{ flexWrap: "wrap" }}>
-  <Fill style={{ marginRight: 5, minWidth: 700 }}>
-    <CodePane lang="js" source={createSlice} />
-  </Fill>
-  <Fill style={{ marginLeft: 5 }}>
-    <List style={{ fontSize: "2.5rem" }}>
-      <ListItem>
-        Inspired by Eric Elliott's <InlineCode>autodux</InlineCode> project
-      </ListItem>
-      <ListItem>
-        Accepts an object of reducers, and returns auto-generated action
-        creators, action types, and a reducer function
-      </ListItem>
-      <ListItem>
-        Uses our "magic" <InlineCode>createReducer</InlineCode> utility, so that
-        your reducers can "mutate" their state
-      </ListItem>
-      <ListItem>
-        Makes it easy to use the "ducks" pattern (default export reducer, named
-        export action creators)
-      </ListItem>
-    </List>
-  </Fill>
-</Layout>
+<LeftCodeRightMarkdown
+  leftSource={createSlice}
+  leftStyle={{ minWidth: 700 }}
+>{`
+- Inspired by Eric Elliott's \`autodux\` project
+- Accepts an object of reducers, and returns auto-generated action creators, action types, and a reducer function
+- Uses our "magic" \`createReducer\` utility, so that your reducers can "mutate" their state
+- Makes it easy to use the "ducks" pattern (default export reducer, named export action creators)
+`}</LeftCodeRightMarkdown>
 
 ---
 
@@ -228,28 +153,15 @@ import createSlice2 from "./examples/createSlice2";
 
 #### Redux Toolkit: `createSlice()`
 
-<Layout style={{ flexWrap: "wrap" }}>
-  <Fill style={{ marginRight: 5, minWidth: 700 }}>
-    <CodePane lang="js" source={createSlice2} />
-  </Fill>
-  <Fill style={{ marginLeft: 5 }}>
-    <List style={{ fontSize: "2.5rem" }}>
-      <ListItem>
-        Usage patterns:
-        <List>
-          <ListItem>
-            Can handle other actions types using{" "}
-            <InlineCode>extraReducers</InlineCode>
-          </ListItem>
-          <ListItem>
-            Slices are just actions + reducers - write side effects like thunks
-            separately and use the generated action creators, same as usual
-          </ListItem>
-        </List>
-      </ListItem>
-    </List>
-  </Fill>
-</Layout>
+
+<LeftCodeRightMarkdown
+  leftSource={createSlice2}
+  leftStyle={{ minWidth: 700 }}
+>{`
+- Usage patterns:
+  - Can handle other action types using \`extraReducers\`
+  - Slices are just actions + reducers - write side effects like thunks separately and use the generated action creators, same as usual
+`}</LeftCodeRightMarkdown>
 
 ---
 
@@ -257,19 +169,12 @@ import createSelector from "./examples/createSelector";
 
 #### Redux Toolkit: `createSelector()`
 
-<Layout style={{ flexWrap: "wrap" }}>
-  <Fill style={{ marginRight: 5, minWidth: 700 }}>
-    <CodePane lang="js" source={createSelector} />
-  </Fill>
-  <Fill style={{ marginLeft: 5 }}>
-    <List style={{ fontSize: "2.5rem" }}>
-      <ListItem>
-        Re-exports the <InlineCode>createSelector</InlineCode> function from
-        Reselect
-      </ListItem>
-    </List>
-  </Fill>
-</Layout>
+<LeftCodeRightMarkdown
+  leftSource={createSelector}
+  leftStyle={{ minWidth: 700 }}
+>{`
+- Re-exports the \`createSelector\` function from Reselect, for creating memoized selectors
+`}</LeftCodeRightMarkdown>
 
 ---
 
@@ -277,41 +182,19 @@ import createAsyncThunk from "./examples/createAsyncThunk";
 
 #### Redux Toolkit: `createAsyncThunk()`
 
-<Layout style={{ flexWrap: "wrap" }}>
-  <Fill style={{ marginRight: 5, minWidth: 700 }}>
-    <CodePane lang="js" source={createAsyncThunk} />
-  </Fill>
-  <Fill style={{ marginLeft: 5 }}>
-    <List style={{ fontSize: "2.5rem" }}>
-      <ListItem>
-        Standard async thunk pattern:
-        <List>
-          <ListItem>Dispatch "loading" action</ListItem>
-          <ListItem>
-            Dispatch either "success" or "failure" actions based on result
-          </ListItem>
-        </List>
-      </ListItem>
-      <ListItem>
-        <InlineCode>createAsyncThunk</InlineCode> implements that pattern:
-        <List>
-          <ListItem>
-            Accepts an action type string prefix and a "payload creator"
-            callback that returns a Promise
-          </ListItem>
-          <ListItem>
-            Autogenerates actions for <InlineCode>pending</InlineCode>,{" "}
-            <InlineCode>fulfilled</InlineCode>, and{" "}
-            <InlineCode>rejected</InlineCode> cases
-          </ListItem>
-          <ListItem>
-            Auto dispatches those actions based on promise resolution lifecycle
-          </ListItem>
-        </List>
-      </ListItem>
-    </List>
-  </Fill>
-</Layout>
+<LeftCodeRightMarkdown
+  leftSource={createAsyncThunk}
+  leftStyle={{ minWidth: 700 }}
+>{`
+- Standard async thunk pattern:
+  - Dispatch "loading" action before fetch
+  - Dispatch either "success" or "failure" action based on result
+- \`createAsyncThunk\` implements that pattern:
+  - Accepts an action type string prefix and a "payload creator" callback that returns a Promise
+  - Autogenerates actions for \`pending\`, \`fulfilled\`, and \`rejected\` cases
+  - Auto dispatches those actions based on promise resolution lifecycle
+`}</LeftCodeRightMarkdown>
+
 
 ---
 
@@ -319,38 +202,19 @@ import createEntityAdapter from "./examples/createEntityAdapter";
 
 #### Redux Toolkit: `createEntityAdapter()`
 
-<Layout style={{ flexWrap: "wrap" }}>
-  <Fill style={{ marginRight: 5, minWidth: 700 }}>
-    <CodePane lang="js" source={createEntityAdapter} />
-  </Fill>
-  <Fill style={{ marginLeft: 5 }}>
-    <List style={{ fontSize: "2.5rem" }}>
-      <ListItem>
-        Redux docs recommend "normalizing" state structure:
-        <List>
-          <ListItem>Single copy of each item</ListItem>
-          <ListItem>Track items in an object mapping IDs to items</ListItem>
-        </List>
-      </ListItem>
-      <ListItem>
-        <InlineCode>createEntityAdapter</InlineCode> implements that pattern:
-        <List>
-          <ListItem>
-            Defines prebuilt reducers for common CRUD logic (add / update /
-            delete, one/many)
-          </ListItem>
-          <ListItem>
-            Reducers can be used directly or as "mutating" helpers
-          </ListItem>
-          <ListItem>
-            Maintains IDs array, with optional sorting based on items
-          </ListItem>
-          <ListItem>Generates basic set of selector functions</ListItem>
-        </List>
-      </ListItem>
-    </List>
-  </Fill>
-</Layout>
+<LeftCodeRightMarkdown
+  leftSource={createEntityAdapter}
+  leftStyle={{ minWidth: 700 }}
+>{`
+- Redux docs recommend "normalizing" state structure
+  - Single copy of each item
+  - Track items in an object mapping IDs to items
+- \`createEntityAdapter\` implements that pattern:
+  - Defines prebuilt reducers for common CRUD logic (add / update / delete, one/many)
+  - Reducers can be used directly or as "mutating" helpers
+  - Maintains IDs array, with optional sorting based on items
+  - Generates basic set of selector functions (select all as array, one by ID, etc)
+`}</LeftCodeRightMarkdown>
 
 ---
 
@@ -378,12 +242,19 @@ import createEntityAdapter from "./examples/createEntityAdapter";
 
 ---
 
+import rtkQueryExample from "./examples/rtkQuery";
+
 #### Redux Toolkit: Roadmap
 
-- Current version: 1.5.0
-- New experimental API: [RTK Query](https://rtk-query-docs.netlify.app)
+<LeftCodeRightMarkdown
+  leftSource={rtkQueryExample}
+  leftStyle={{ minWidth: 900 }}
+>{`
+- Current RTK version: 1.5.0
+- New experimental API now available: [**RTK Query**](https://rtk-query-docs.netlify.app)
   - Advanced data fetching and caching library built for Redux Toolkit
   - Just released as alpha - will iterate on API, then merge into RTK
+`}</LeftCodeRightMarkdown>
 
 ---
 

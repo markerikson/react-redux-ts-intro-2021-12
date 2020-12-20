@@ -15,8 +15,9 @@ const SpeakerListItem = ({ speaker, selected, onClick }) => {
   return <li onClick={itemOnClick}>{content}</li>;
 };
 
-function ListSelectionExample() {
-  const [speakers, setSpeakers] = useState(allSpeakers);
+function ListSelectionExample({speakers}) {
+  const [shouldSort, setShouldSort] = useState(false);
+  const [filter, setFilter] = useState("");
   const [selectedSpeaker, setSelectedSpeaker] = useState(null);
 
   const onSpeakerClicked = speaker => {
@@ -24,21 +25,30 @@ function ListSelectionExample() {
   };
 
   const onSortClicked = () => {
-    const sortedSpeakers = speakers.slice().sort();
-    setSpeakers(sortedSpeakers);
+    setShouldSort(true);
   };
 
   const onScottsClicked = () => {
-    const onlyScotts = speakers.filter(name => name.startsWith("Scott"));
-    setSpeakers(onlyScotts);
+    setFilter("Scott");
   };
 
   const onResetClicked = () => {
-    setSpeakers(allSpeakers);
+    setShouldSort(false);
+    setFilter("");
     setSelectedSpeaker(null);
   };
 
-  const speakerListItems = speakers.map(speaker => (
+  let speakersToDisplay = speakers;
+
+  if (filter) {
+    speakersToDisplay = speakersToDisplay.filter(name => name.startsWith(filter));
+  }
+
+  if (shouldSort) {
+    speakersToDisplay = speakersToDisplay.slice().sort()
+  }
+
+  const speakerListItems = speakersToDisplay.map(speaker => (
     <SpeakerListItem
       key={speaker}
       speaker={speaker}
@@ -75,4 +85,4 @@ const allSpeakers = [
   "Scott Hunter",
 ];
 
-render(<ListSelectionExample />);
+render(<ListSelectionExample speakers={allSpeakers}/>);
