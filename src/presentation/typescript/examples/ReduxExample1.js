@@ -20,10 +20,10 @@ const todosSlice = createSlice({
   reducers: {
     // Declare type of actions in createSlice
     todoAdded(state, action: PayloadAction<Todo>) {
-      state.push(action);
+      state.push(action.payload);
     },
     todoToggled(state, action: PayloadAction<number>) {
-      const todo = state[index];
+      const todo = state[action.payload];
       todo.completed = !todo.completed;
     },
   },
